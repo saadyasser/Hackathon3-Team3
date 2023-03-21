@@ -1,30 +1,21 @@
-import Card from "components/Card";
-import { useCurrentUser, useLogout } from "features/authentication";
-import { Button, Dropdown } from "components";
-import { NestedLayout } from "layouts";
-import { LinkForm } from "features/invoice-system/components";
-
-const options = [
-  { value: "settings", label: "Account settings" },
-  { value: "info", label: "Account info" },
-];
-
-const InvoicesPage = (): JSX.Element => {
-  const { user } = useCurrentUser();
-  const logout = useLogout();
-
+import { BalanceCard, Card } from "components";
+import { GeneralLayout } from "layouts";
+// import { NextPageWithLayout } from "types";
+const Home: any = (): any => {
   return (
-    <NestedLayout
-      form={<LinkForm url="" data={[]} id="" />}
-      preview={<p>preview</p>}
-    ></NestedLayout>
+    <GeneralLayout captionProp={<BalanceCard />}>
+      <Card>
+        <div>test layout</div>
+      </Card>
+    </GeneralLayout>
   );
 };
 
-InvoicesPage.mainLayoutProps = {
+Home.mainLayoutProps = {
   title: "Talents Valley Home",
   pageDescription: "Home page description",
-  withoutFooter: true,
+  contentClassName: "!block",
+  withSidebar: true,
 };
 
-export default InvoicesPage;
+export default Home;
