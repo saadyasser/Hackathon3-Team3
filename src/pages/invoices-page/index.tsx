@@ -5,7 +5,7 @@ const Home: any = (): any => {
   return (
     <GeneralLayout captionProp={<BalanceCard />}>
       <Card>
-        <div>test layout</div>
+        <div>test preview layout ....</div>
       </Card>
     </GeneralLayout>
   );
