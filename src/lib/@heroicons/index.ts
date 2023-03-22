@@ -15,11 +15,15 @@ import {
   Cog8ToothIcon as Cog8ToothIconMini,
   ArrowRightOnRectangleIcon as ArrowRightOnRectangleIconMini,
   ChevronRightIcon as ChevronRightIconMini,
+  AdjustmentsHorizontalIcon as AdjustmentsHorizontalIcon,
+  ArrowsUpDownIcon as ArrowsUpDownIcon,
+  PaperAirplaneIcon as Send,
 } from "@heroicons/react/20/solid";
 import {
   InformationCircleIcon,
   HomeIcon as HomeIconOutline,
   QuestionMarkCircleIcon as QuestionMarkCircleIconOutline,
+  MagnifyingGlassIcon as MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 
 export {
@@ -40,5 +44,9 @@ export {
   ArrowDownTrayIconMini,
   PlusIconMini,
   Cog8ToothIconMini,
+  MagnifyingGlassIcon,
   ArrowRightOnRectangleIconMini,
+  AdjustmentsHorizontalIcon,
+  ArrowsUpDownIcon,
+  Send,
 };

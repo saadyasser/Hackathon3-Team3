@@ -1,11 +1,16 @@
 import { Button, Card, IconButton } from "components";
+import { useCurrentUser } from "features/authentication";
+
 import { ArrowDownTrayIconMini, PlusIconMini } from "lib/@heroicons";
 import { Send } from "components/svg";
 
-export const BalanceCard = ({ balance = "250.00" }) => {
-  const beforeDecimal = Math.trunc(balance);
-  var getDecimalVal = balance.toString().indexOf(".");
-  var afterDecimal = balance.toString().substring(getDecimalVal + 1);
+export const BalanceCard = () => {
+  const { user } = useCurrentUser();
+  // const balance = user?.balance.toString().split(".");
+
+  const beforeDecimal = Math.trunc(user?.balance);
+  var getDecimalVal = user?.balance.toString().indexOf(".");
+  // var afterDecimal = balance.toString().substring(getDecimalVal + 1);
   const buttonClasses = {
     button:
       "!bg-[#F3F6FF] !text-[#4375FF] hover:!text-[#F3F6FF] hover:!bg-[#4375FF] flex items-center gap-2",
@@ -19,7 +24,7 @@ export const BalanceCard = ({ balance = "250.00" }) => {
       <div className="flex gap-3">
         <h3 className=" font-semibold  text-2xl">
           ${beforeDecimal}.
-          <span className=" text-base font-medium">{afterDecimal}</span>
+           <span className=" text-base font-medium">00</span>
         </h3>
         <IconButton buttonSize="small" className={buttonClasses.iconButton}>
           <ArrowDownTrayIconMini />
@@ -39,3 +44,5 @@ export const BalanceCard = ({ balance = "250.00" }) => {
   );
 };
 export default BalanceCard;
+// {balance[0]}.
+// <span className="text-sm">{balance[1] ? balance[1] : "00"}</span>

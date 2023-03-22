@@ -2,7 +2,7 @@ import { COOKIES_KEYS } from "data";
 import { getCookie } from "lib/js-cookie";
 import { useSWR } from "lib/swr";
 
-export const useSwrFetch = (subUrl, options) => {
+export const useSwrFetch = (subUrl: any, options: any) => {
   const url = process.env.NEXT_PUBLIC_API_ENDPOINT + "" + subUrl;
   const currentUser = getCookie(COOKIES_KEYS.currentUser);
   options.headers.Authorization = `Bearer ${currentUser.accessToken}`;
