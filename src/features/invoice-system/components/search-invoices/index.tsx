@@ -12,9 +12,9 @@ const SearchInvoice = () => {
 
     return (
         <div className="flex gap-10">
-        <div>
+        <div className="w-[50%]">
             <Input
-            inputClassName="pl-12"
+            inputClassName="pl-12 "
             startIcon={<MagnifyingGlassIconOutline className="w-5" />}
             placeholder="search"
             />
@@ -47,7 +47,7 @@ const SearchInvoice = () => {
             Filter
             </Button>
             {toggle && (
-            <Card className="fixed right-[388px] top-[336px] pr-6">
+            <Card className="fixed right-[458px] top-[155px] pr-6">
                 <ul>
                 <li>
                     <label className="text-[#707070] text-sm">
