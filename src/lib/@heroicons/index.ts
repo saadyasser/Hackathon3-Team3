@@ -20,6 +20,10 @@ import {
   InformationCircleIcon,
   HomeIcon as HomeIconOutline,
   QuestionMarkCircleIcon as QuestionMarkCircleIconOutline,
+  MagnifyingGlassIcon as MagnifyingGlassIconOutline,
+  PlusIcon as PlusIconOutline,
+  PaperAirplaneIcon as PaperAirplaneIconOutline,
+  AdjustmentsHorizontalIcon as AdjustmentsHorizontalIconOutline
 } from "@heroicons/react/24/outline";
 
 export {
@@ -41,4 +45,8 @@ export {
   PlusIconMini,
   Cog8ToothIconMini,
   ArrowRightOnRectangleIconMini,
+  MagnifyingGlassIconOutline,
+  PlusIconOutline,
+  PaperAirplaneIconOutline,
+  AdjustmentsHorizontalIconOutline
 };
