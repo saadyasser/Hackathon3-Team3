@@ -15,6 +15,7 @@ import {
   Cog8ToothIcon as Cog8ToothIconMini,
   ArrowRightOnRectangleIcon as ArrowRightOnRectangleIconMini,
   ChevronRightIcon as ChevronRightIconMini,
+  ChevronDownIcon as ChevronDownIconMini,
 } from "@heroicons/react/20/solid";
 import {
   InformationCircleIcon,
@@ -23,6 +24,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 export {
+  ChevronDownIconMini,
   ChevronRightIconMini,
   ErrorIconMini,
   CheckCircleIconMini,
