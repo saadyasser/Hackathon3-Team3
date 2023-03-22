@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "lib/@headlessui";
-// import { ChevronDownIconMini } from "lib/@heroicons";
+import { ChevronDownIconMini } from "lib/@heroicons";
 import Button from "../Button";
 import Item from "./Item";
 import getDropdownClassNames from "./getDropdownClassNames";
