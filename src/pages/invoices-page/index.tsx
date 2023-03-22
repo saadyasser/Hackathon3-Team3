@@ -14,7 +14,7 @@ const Home: any = (): any => {
 };
 
 Home.mainLayoutProps = {
-  title: "Talents Valley Home",
+  title: "Talents Valley Invoice Page",
   pageDescription: "Home page description",
   contentClassName: "!block",
   withSidebar: true,

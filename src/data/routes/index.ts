@@ -17,6 +17,9 @@ export const URL_PATHS = {
       CONFIRMATION: "/invoices/pay-invoice/[invoiceId]/confirmation",
     },
   },
+  BALANCE: {
+    
+  },
   VERIFICATION: {
     INDEX: "/verification",
     EMAIL: "/verification/email",

@@ -21,7 +21,7 @@ export const MainMenuData = [
   },
   {
     id: 3,
-    name: "Withdraw",
+    name: "Balance",
     icon: <Withdraw />,
     link: "#",
   },

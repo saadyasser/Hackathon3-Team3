@@ -14,9 +14,10 @@ const SearchInvoice = () => {
         <div className="flex gap-10">
         <div className="w-[50%]">
             <Input
-            inputClassName="pl-12 "
+            className=""
+            inputClassName="pl-12"
             startIcon={<MagnifyingGlassIconOutline className="w-5" />}
-            placeholder="search"
+            placeholder="Search for invoice, title, client or description"
             />
         </div>
         <div className="flex gap-3">
