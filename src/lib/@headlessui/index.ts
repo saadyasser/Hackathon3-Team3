@@ -1,3 +1,3 @@
-import { Menu, Transition } from "@headlessui/react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 
-export { Menu, Transition };
+export { Dialog, Menu, Transition };
