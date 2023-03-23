@@ -31,7 +31,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         icon: "absolute text-gray-400 select-none top-1/2 -translate-y-2/4",
         startIcon: "left-4",
         endIcon: "right-4",
-        input: `block w-full border-gray focus:ring-0 focus:border-blue rounded-md pl-10 placeholder:text-[12px]${
+        input: `block w-full border-gray focus:ring-0 focus:border-blue rounded-md placeholder:text-[14px] ${
           inputClassName || ""
         }`,
         helperText: "inline-flex min-h-[20px] text-xs mt-1",

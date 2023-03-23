@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
-
-import { Skeleton, NoSsr } from "components";
+import { Skeleton, NoSsr, Button } from "components";
 import { API_ENDPOINT } from "data";
 import { getAuthorizationHeader } from "utils";
 import StatusMap from "./StatusMap";
 import Pagination from "./Pagination";
-
 import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
-
 import useSwrFetch from "hooks/useSwrFetch";
 import axios from "axios";
-
 import classNames from "classnames";
 import { Tab } from "@headlessui/react";
 import { timeStamp } from "console";
+import { useLogout } from "features/authentication";
 
 export const Table = () => {
+  const logout = useLogout();
   const Authorization = getAuthorizationHeader();
   const token = Authorization.Authorization;
   const [data, setData] = useState([]);
@@ -28,34 +26,12 @@ export const Table = () => {
 
   // const pageCount = () => Math.floor(data?.pageSize / 5);
 
-  // const fetcher =axios.get("/transactions/invoice-service-listing").then(res=>console.log(res)).catch(err=>console.log(err));
-  // API_SERVICES_URLS.INVOICE.INVOICEPAGE
-  // const { data, error, isLoading } = useSWR("/transactions/invoice-service-listing",fetcher);
-  // `${API_ENDPOINT}/transactions/invoice-service-listing?search=${search}&limit=${perPage}&offset=${offset}&sort=${sortOrder}&type=${type}`,
- 
+
  const {data: d, error, isLoading} = useSwrFetch("/transactions/invoice-service-listing?limit=10&sort=-createdAt&offset=0&type=all", {method: "GET", headers: {}});
  console.log(d, error, isLoading);
-  if(isLoading) {
-    
-  }
- function getTableData() {
-    return axios.get(
-      `${API_ENDPOINT}/transactions/invoice-service-listing?limit=10&sort=-createdAt&offset=0&type=all`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-  }
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getTableData();
-    setData(result.data?.data.transactions);
-      console.log(result.data?.data.transactions);
-    };
-    fetchData();
-  }, []);
+
+
+  
   // const date = new Date(timestamp);
   // const formattedTime = date.toLocaleTimeString("en-US", {
   //   hour: "numeric",
@@ -142,6 +118,8 @@ export const Table = () => {
         </thead>
         <tbody>
           {d && d.data.transactions.map((item) => ( 
+            const day = new Date(item).toLocaleDateString('en-US', { weekday: 'long' });
+            return (
             <tr
                 key={item._id}
                 className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
@@ -151,7 +129,7 @@ export const Table = () => {
                   {item.invoice?.fixed.itemName}
                   <br />
                   <span className="text-[12px] text-[#BEC2C6]  px-8 py-2">
-                  {item.updatedAt}
+            {item.updatedAt}
                   </span>
                 </td>
                 <td className="px-8 py-2">${item.invoice?.subTotal}</td>
@@ -160,7 +138,7 @@ export const Table = () => {
                 <StatusMap status={item.invoice?.status} />
                 </td>
               </tr>
-            ))}
+            )))}
         </tbody>
         {/* <div className="text-center left-[50%]">
           {offset > 0 && ( <button onClick={handlePrevPage} className="p-1 cursor-pointer" disabled={offset === 1}>&#8826;</button>  )}

@@ -1,4 +1,5 @@
 import { BalanceCard, Card } from "components";
+import SearchInvoice from "features/invoice-system/components/search-invoices";
 import { GeneralLayout } from "layouts";
 import Search from "features/invoice-system/components/Table/Search";
 import Table from "features/invoice-system/components/Table";
@@ -6,18 +7,18 @@ import Table from "features/invoice-system/components/Table";
 const Home: any = (): any => {
   return (
     <GeneralLayout captionProp={<BalanceCard />}>
-           <div className="flex flex-col">
-         <Search />
-    <Card>
-    <Table/>
-    </Card>
-    </div>
+      <div className="flex flex-col">
+        <Search />
+        <Card>
+          <Table />
+        </Card>
+      </div>
     </GeneralLayout>
   );
 };
 
 Home.mainLayoutProps = {
-  title: "Talents Valley Home",
+  title: "Talents Valley Invoice Page",
   pageDescription: "Home page description",
   contentClassName: "!block",
   withSidebar: true,

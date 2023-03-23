@@ -24,6 +24,8 @@ import {
   HomeIcon as HomeIconOutline,
   QuestionMarkCircleIcon as QuestionMarkCircleIconOutline,
   MagnifyingGlassIcon as MagnifyingGlassIcon,
+  PlusIcon as PlusIcon,
+  PaperAirplaneIcon as PaperAirplaneIcon,
 } from "@heroicons/react/24/outline";
 
 export {
@@ -49,4 +51,6 @@ export {
   AdjustmentsHorizontalIcon,
   ArrowsUpDownIcon,
   Send,
+  PlusIcon,
+  PaperAirplaneIcon,
 };
