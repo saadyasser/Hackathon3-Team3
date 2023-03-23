@@ -9,6 +9,7 @@ import useSwrFetch from "hooks/useSwrFetch";
 import axios from "axios";
 import classNames from "classnames";
 import { Tab } from "@headlessui/react";
+import { timeStamp } from "console";
 import { useLogout } from "features/authentication";
 
 export const Table = () => {
@@ -22,6 +23,7 @@ export const Table = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [type, setType] = useState("all");
   const pageSize = 10;
+
   // const pageCount = () => Math.floor(data?.pageSize / 5);
 
   
@@ -38,12 +40,16 @@ export const Table = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getTableData();
-    setData(result.data?.data);
-      console.log(result.data?.data);
+    setData(result.data?.data.transactions);
+      console.log(result.data?.data.transactions);
     };
     fetchData();
   }, []);
-
+  // const date = new Date(timestamp);
+  // const formattedTime = date.toLocaleTimeString("en-US", {
+  //   hour: "numeric",
+  //   hour12: true,
+  // });
   return (
     <NoSsr>
       <Button onClick={logout}>Logout</Button>
@@ -125,23 +131,23 @@ export const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.data?.map((item) => ( 
+          {data?.map((item) => ( 
             <tr
                 key={item._id}
                 className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
                 onClick={() => console.log(item._id)}
               >
                 <td className=" px-8 py-2">
-                  {item.invoice.fixed.itmName}
+                  {item.invoice?.fixed.itemName}
                   <br />
                   <span className="text-[12px] text-[#BEC2C6]  px-8 py-2">
                   {item.updatedAt}
                   </span>
                 </td>
-                <td className="px-8 py-2">${item.service.subTotal}</td>
-                <td>{item.invoice.client.fullName}</td>
+                <td className="px-8 py-2">${item.invoice?.subTotal}</td>
+                <td>{item.invoice?.client.fullName}</td>
                 <td className="px-8 py-2">
-                <StatusMap status={item.service.status} />
+                <StatusMap status={item.invoice?.status} />
                 </td>
               </tr>
             ))}
