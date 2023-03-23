@@ -4,7 +4,7 @@ import { URL_PATHS } from "data";
 const NavLinks = () => {
   return (
     <div>
-      <Link
+      {/* <Link
         href={URL_PATHS.HOME}
         className="px-6 transition-colors hover:text-blue"
       >
@@ -21,7 +21,7 @@ const NavLinks = () => {
         className="px-6 py-1 text-blue border rounded-full border-blue transition-colors hover:bg-blue hover:text-white"
       >
         Create
-      </Link>
+      </Link> */}
     </div>
   );
 };

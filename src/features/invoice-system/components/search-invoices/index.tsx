@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { Input, Button, Card } from "components";
-import {
-    MagnifyingGlassIconOutline,
-    PlusIconOutline,
-    PaperAirplaneIconOutline,
-    AdjustmentsHorizontalIconOutline,
-} from "lib/@heroicons";
+import {MagnifyingGlassIcon, PlusIcon , PaperAirplaneIcon, AdjustmentsHorizontalIcon} from "lib/@heroicons"
+
 
 const SearchInvoice = () => {
     const [toggle, setToggle] = useState(false);
@@ -16,7 +12,7 @@ const SearchInvoice = () => {
             <Input
             className=""
             inputClassName="pl-12"
-            startIcon={<MagnifyingGlassIconOutline className="w-5" />}
+            startIcon={<MagnifyingGlassIcon className="w-5" />}
             placeholder="Search for invoice, title, client or description"
             />
         </div>
@@ -26,7 +22,7 @@ const SearchInvoice = () => {
             className="flex justify-center items-center 
                     h-12 bg-[#ffffff] text-[#4375FF] hover:bg-[#ffffff]"
             >
-            <PlusIconOutline className="w-6 h-6 pr-2" />
+            <PlusIcon className="w-6 h-6 pr-2" />
             Link
             </Button>
 
@@ -35,7 +31,7 @@ const SearchInvoice = () => {
             className="flex justify-center items-center 
                     h-12 bg-[#ffffff] text-[#4375FF] hover:bg-[#ffffff]"
             >
-            <PaperAirplaneIconOutline className="w-6 h-6 pr-2" />
+            <PaperAirplaneIcon className="w-6 h-6 pr-2" />
             Invoice
             </Button>
             <Button
@@ -44,7 +40,7 @@ const SearchInvoice = () => {
             className="flex justify-center items-center 
                     h-12 bg-[#ffffff] text-[#707070] hover:bg-[#ffffff]"
             >
-            <AdjustmentsHorizontalIconOutline className="w-6 h-6 pr-2" />
+            <AdjustmentsHorizontalIcon className="w-6 h-6 pr-2" />
             Filter
             </Button>
             {toggle && (

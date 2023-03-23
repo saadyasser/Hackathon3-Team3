@@ -45,3 +45,5 @@ export const BalanceCard = () => {
   );
 };
 export default BalanceCard;
+// {balance[0]}.
+// <span className="text-sm">{balance[1] ? balance[1] : "00"}</span>

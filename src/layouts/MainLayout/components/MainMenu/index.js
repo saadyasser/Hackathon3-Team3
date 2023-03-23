@@ -45,7 +45,7 @@ export const Sidebar = () => {
               </Link>
             ))}
           </ul>
-          {/* <ul className=" pb-20">
+          <ul className=" pb-20">
             <Link href="#" className={classes.link}>
               <span className={classes.linkIcon}>
                 <Cog8ToothIconMini />
@@ -59,7 +59,7 @@ export const Sidebar = () => {
               </span>
               <span className={classes.linkName}>Log Out</span>
             </Link>
-          </ul> */}
+          </ul>
         </div>
       </aside>
     </>
