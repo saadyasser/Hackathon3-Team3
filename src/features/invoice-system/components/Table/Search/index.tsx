@@ -58,7 +58,7 @@ export const Search = () => {
                 Filter
             </Button>
             {toggle && (
-                <Card className="fixed right-[458px] top-[155px] pr-6">
+            <Card className="fixed right-[454px] top-[155px] pr-6">
                 <ul>
                     <li>
                     <label className="text-[#707070] text-sm">
@@ -117,8 +117,8 @@ export const Search = () => {
                 </ul>
                 </Card>
             )}
-            {showInvoice && (
-                <Card className="fixed right-[458px] top-[155px] pr-6">
+             {showInvoice && (
+            <Card className="fixed right-[454px] top-[155px] pr-6">
                 <ul>
                     <li>
                     <label className="text-[#707070] text-sm">

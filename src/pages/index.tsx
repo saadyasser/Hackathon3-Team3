@@ -1,12 +1,13 @@
 import { BalanceCard, Card } from "components";
 import { GeneralLayout } from "layouts";
-import Search from "features/invoice-system/components/Table/Search";
-import Table from "features/invoice-system/components/Table";
+import {  useLogout } from "features/authentication";
+import { Button } from "components";
 // import { NextPageWithLayout } from "types";
 const Home: any = (): any => {
+  const logout = useLogout();
   return (
     <GeneralLayout captionProp={<BalanceCard />}>
-    
+        <Button onClick={logout}>Logout</Button>
     </GeneralLayout>
   );
 };
