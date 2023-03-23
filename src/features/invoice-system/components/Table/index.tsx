@@ -32,7 +32,13 @@ export const Table = () => {
   // API_SERVICES_URLS.INVOICE.INVOICEPAGE
   // const { data, error, isLoading } = useSWR("/transactions/invoice-service-listing",fetcher);
   // `${API_ENDPOINT}/transactions/invoice-service-listing?search=${search}&limit=${perPage}&offset=${offset}&sort=${sortOrder}&type=${type}`,
-  function getTableData() {
+ 
+ const {data: d, error, isLoading} = useSwrFetch("/transactions/invoice-service-listing?limit=10&sort=-createdAt&offset=0&type=all", {method: "GET", headers: {}});
+ console.log(d, error, isLoading);
+  if(isLoading) {
+    
+  }
+ function getTableData() {
     return axios.get(
       `${API_ENDPOINT}/transactions/invoice-service-listing?limit=10&sort=-createdAt&offset=0&type=all`,
       {
@@ -135,7 +141,7 @@ export const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.map((item) => ( 
+          {d && d.data.transactions.map((item) => ( 
             <tr
                 key={item._id}
                 className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
