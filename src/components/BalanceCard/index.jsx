@@ -1,4 +1,4 @@
-import { Button, Card, IconButton } from "components";
+import { Button, Card, IconButton, NoSsr } from "components";
 import { useCurrentUser } from "features/authentication";
 
 import { ArrowDownTrayIconMini, PlusIconMini } from "lib/@heroicons";
@@ -19,6 +19,7 @@ export const BalanceCard = () => {
   };
 
   return (
+    <NoSsr>
     <Card className="w-full sm:w-fit">
       <span className="text-[#8c8c8c]">Balance</span>
       <div className="flex gap-3">
@@ -41,6 +42,7 @@ export const BalanceCard = () => {
         </Button>
       </div>
     </Card>
+    </NoSsr>
   );
 };
 export default BalanceCard;

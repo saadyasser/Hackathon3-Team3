@@ -5,9 +5,11 @@ import {
   ArrowRightOnRectangleIconMini,
   Cog8ToothIconMini,
 } from "lib/@heroicons";
+import { useLogout } from "features/authentication";
 
 export const Sidebar = () => {
   const router = useRouter();
+  const logout = useLogout();
   const currentRoute = router.pathname;
   const classes = {
     aside:
@@ -57,7 +59,7 @@ export const Sidebar = () => {
               <span className={classes.linkIcon}>
                 <ArrowRightOnRectangleIconMini />
               </span>
-              <span className={classes.linkName}>Log Out</span>
+              <span className={classes.linkName} onClick={logout}>Log Out</span>
             </Link>
           </ul>
         </div>
