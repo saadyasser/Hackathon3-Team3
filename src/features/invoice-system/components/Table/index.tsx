@@ -24,12 +24,23 @@ export const Table = () => {
   const [type, setType] = useState("all");
   const pageSize = 10;
 
-  // const pageCount = () => Math.floor(data?.pageSize / 5);
-
+  function handleType(type: string) {
+    console.log('test');
+    console.log(type);
+    
+    setType(type)
+  }
   
+
+  const {data: d, error, isLoading} = useSwrFetch(`/transactions/invoice-service-listing?limit=10&sort=-createdAt&offset=0&type=${type}`, {method: "GET", headers: {}});
+  console.log(d, error, isLoading);
+  console.log(d)
+  // if(isLoading) {
+    
+  // }
   function getTableData() {
     return axios.get(
-      `${API_ENDPOINT}/transactions/invoice-service-listing?limit=10&sort=-createdAt&offset=0&type=all`,
+      `${API_ENDPOINT}/transactions/invoice-service-listing?limit=10&sort=-createdAt&offset=0&type=${type}`,
       {
         headers: {
           Authorization: token,
@@ -57,6 +68,7 @@ export const Table = () => {
         <Tab.Group>
           <Tab.List className="p-1">
             <Tab
+            onClick={()=> handleType("all")}
               className={({ selected }) =>
                 classNames(
                   "py-2.5 px-3 focus:outline-none ",
@@ -67,6 +79,7 @@ export const Table = () => {
               All
             </Tab>
             <Tab
+                onClick={()=> handleType("invoice")}
               className={({ selected }) =>
                 classNames(
                   "py-2.5 px-3 focus:outline-none ",
@@ -77,6 +90,7 @@ export const Table = () => {
               Invoices
             </Tab>
             <Tab
+            onClick={()=> handleType("service")}
               className={({ selected }) =>
                 classNames(
                   "py-2.5 px-3 focus:outline-none",
@@ -131,23 +145,23 @@ export const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.map((item) => ( 
+          {d && d.data.transactions.map((item) => ( 
             <tr
                 key={item._id}
                 className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
-                onClick={() => console.log(item._id)}
+                onClick={() => console.log(item._id && item.invoice?.client.fullName) }
               >
                 <td className=" px-8 py-2">
-                  {item.invoice?.fixed.itemName}
+                  { item.invoice?.fixed[0].itemName || item.service?.fixed[0].itemName }
                   <br />
                   <span className="text-[12px] text-[#BEC2C6]  px-8 py-2">
                   {item.updatedAt}
                   </span>
                 </td>
-                <td className="px-8 py-2">${item.invoice?.subTotal}</td>
+                <td className="px-8 py-2">${item.invoice?.subTotal || item.service?.subTotal}</td>
                 <td>{item.invoice?.client.fullName}</td>
                 <td className="px-8 py-2">
-                <StatusMap status={item.invoice?.status} />
+                <StatusMap status={item.invoice?.status || item.service?.status} />
                 </td>
               </tr>
             ))}
