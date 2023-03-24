@@ -7,7 +7,7 @@ import {
 } from "lib/@heroicons";
 import { NoSsr, Input, Button, Card, Link } from "components";
 import { URL_PATHS } from "data";
-export const Search = ({handleSearch}:any) => {
+export const Search = ({searchValue,setSearchValue}:any) => {
     const [filter, setFilter] = useState(null);
     const [toggle, setToggle] = useState(false);
     const [showInvoice, setShowInvoice] = useState(false);
@@ -26,6 +26,8 @@ export const Search = ({handleSearch}:any) => {
                 inputClassName="pl-12 text-sm"
                 startIcon={<MagnifyingGlassIcon className="w-5" />}
                 placeholder="Search for invoice, title, client or description"
+                value={searchValue}
+                onChange={e => setSearchValue(e.target.value)}
             />
             </div>
             <div className="flex gap-3">

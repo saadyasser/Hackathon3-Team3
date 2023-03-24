@@ -1,62 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { Skeleton, NoSsr, Button } from "components";
-import { API_ENDPOINT } from "data";
-import { getAuthorizationHeader } from "utils";
-import StatusMap from "./StatusMap";
 
+import StatusMap from "./StatusMap";
 import Pagination from "./Pagination";
 
-import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 import useSwrFetch from "hooks/useSwrFetch";
 
 import classNames from "classnames";
 import { Tab } from "@headlessui/react";
 
-export const Table = () => {
-  
-  const Authorization = getAuthorizationHeader();
-  const token = Authorization.Authorization;
+export const Table = ({searchValue}:any) => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [searchQuery, setSearchQuery] = useState("");
   const [filteredValue, setFilteredValue] = useState();
   const [type, setType] = useState("all");
-  const itemsPerPage = 2;
+  const [activeTab, setActiveTab] = useState(null);
+  const [dropdownTab, setDropdownTab] = useState(null);
 
   // const pageCount = () => Math.floor(data?.pageSize / 5);
 
 
- const {data: d, error, isLoading} = useSwrFetch(`/transactions/invoice-service-listing?offset=${currentPage}&limit=10&sort=${sortOrder}&search=${searchQuery}&type={type}`, {method: "GET", headers: {}});
+ const {data: d, error, isLoading} = useSwrFetch(`/transactions/invoice-service-listing?offset=${currentPage}&limit=10&sort=${sortOrder}&search=${searchValue}&type={type}`, {method: "GET", headers: {}});
  console.log(d, error, isLoading);
  useEffect(()=>{
   if(d)setData(d.data?.transactions);
  },[d])
-//  const transation = d;
-   // Define functions to handle pagination
-//    const handleNextPage = () => {
-//     setOffset((prev) => prev + 1);
-//     d();
-//   };
-//   const handlePrevPage = () => {
-//     setOffset((prev) => prev - 1);
-//     d();
-//   };
-//  const handleSearch = (e) => {
-//     setSearchQuery(e.target.value);
-//   };
+  
 const sortData = (property) => {
   const sortedData = [...data].sort((a, b) => a[property] > b[property] ? 1 : -1);
   setData(sortedData);
 }
-  // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+const NextPaginate = () => {
+  setCurrentPage((prev) => prev + 1);
+};
+const PrevPaginate = () => {
+  setCurrentPage((prev) => prev - 1);
+};
+const paginateCount = () => Math.floor(d?.count / 5);
 
-
-  // Change page
-  const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
     <NoSsr>
@@ -104,17 +86,17 @@ const sortData = (property) => {
               <div className="flex ">
                 Name
                 <div className="flex flex-col ml-2 -mt-2 mr-3">
-                <p onClick={() => sortData('itemName')}>
+                <p onClick={() => sortData('"name')}>
                   &#9650;
                 </p>
-                <p onClick={() =>sortData('itemName')}>&#9660;</p>
+                <p onClick={() =>sortData('"-name')}>&#9660;</p>
                 </div>
                 Date
                 <div className="flex flex-col ml-2 -mt-2">
-                <p onClick={() =>sortData('updatedAt')}>
+                <p onClick={() =>sortData('data')}>
                   &#9650;
                 </p>
-                <p onClick={() =>sortData('updatedAt')}>&#9660;</p>
+                <p onClick={() =>sortData('data')}>&#9660;</p>
                 </div>
               </div>
             </th>
@@ -157,8 +139,8 @@ const sortData = (property) => {
           </tr>
         </thead>
         <tbody>
-        {!isLoading&& d.length === 0 && <tr>No data found</tr>}
-          {data && data.slice(indexOfFirstPost, indexOfLastPost).map((item) => ( 
+        {!isLoading&& data.length === 0 && <tr>No data found</tr>}
+          {data && data.map((item) => ( 
             <tr
                 key={item._id}
                 className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
@@ -178,19 +160,20 @@ const sortData = (property) => {
                 </td>
               </tr>
             ))}
-            <tr ><td className="text-center m-auto left-[50%]">  <Pagination
+            {/* <tr ><td className="text-center m-auto left-[50%]">  <Pagination
         postsPerPage={postsPerPage}
         totalPosts={data.length}
         paginate={paginate}
         setData={setData}
-      /></td></tr>
+      /></td></tr> */}
         </tbody>
        
         <div className="text-center left-[50%]">
       
-          {/* {offset > 0 && ( <button onClick={handlePrevPage} className="p-1 cursor-pointer" disabled={offset === 1}>&#8826;</button>  )}
-          <span className="px-2">Page {offset} - {pageCount()}</span>
-          {offset < pageCount() && ( <button onClick={handleNextPage} className="p-1 cursor-pointer" disabled={offset === totalPages}>&#8827;</button>  )} */}
+        {currentPage > 0 && (<button onClick={PrevPaginate} className="p-1 cursor-pointer"><span>&#8826;</span> </button>     )}
+        
+          <span className="px-2"> Page {currentPage} - {paginateCount()}</span>
+        {currentPage < paginateCount() && ( <button onClick={NextPaginate} className="p-1 cursor-pointer" > <span>&#8827;</span></button>  )}    
           </div>
       </table>
     </NoSsr>
