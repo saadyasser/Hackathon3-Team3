@@ -7,7 +7,7 @@ import {
 } from "lib/@heroicons";
 import { NoSsr, Input, Button, Card, Link } from "components";
 import { URL_PATHS } from "data";
-export const Search = () => {
+export const Search = ({handleSearch}:any) => {
     const [filter, setFilter] = useState(null);
     const [toggle, setToggle] = useState(false);
     const [showInvoice, setShowInvoice] = useState(false);
@@ -62,55 +62,49 @@ export const Search = () => {
                 <ul>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4 " />
+                        <input type="checkbox" name="paid" className="mr-4 " />
                         Paid
                     </label>
                     </li>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox"  name="sent" className="mr-4" />
                         Sent
                     </label>
                     </li>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox" name="pending Payment" className="mr-4" />
                         Pending Payment
                     </label>
                     </li>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
-                        Pending Payment
-                    </label>
-                    </li>
-                    <li>
-                    <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox" name="canceled" className="mr-4" />
                         Canceled
                     </label>
                     </li>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox" name="active"  className="mr-4" />
                         Active
                     </label>
                     </li>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox" className="mr-4" name="inactive" />
                         Inactive
                     </label>
                     </li>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox" name="disapproved" className="mr-4" />
                         Disapproved
                     </label>
                     </li>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox" name="refunded" className="mr-4" />
                         Refunded
                     </label>
                     </li>
@@ -122,32 +116,32 @@ export const Search = () => {
                 <ul>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox" name="active" className="mr-4" />
                         Active
                     </label>
                     </li>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox" name="inactive" className="mr-4" />
                         Inactive
                     </label>
                     </li>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox" className="mr-4" name="pending Payment" />
                         Pending Payment
                     </label>
                     </li>
 
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox" className="mr-4" name="pending"/>
                         Pending
                     </label>
                     </li>
                     <li>
                     <label className="text-[#707070] text-sm">
-                        <input type="checkbox" className="mr-4" />
+                        <input type="checkbox" className="mr-4" name="disapproved" />
                         Disapproved
                     </label>
                     </li>

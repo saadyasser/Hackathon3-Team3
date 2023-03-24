@@ -3,40 +3,61 @@ import { Skeleton, NoSsr, Button } from "components";
 import { API_ENDPOINT } from "data";
 import { getAuthorizationHeader } from "utils";
 import StatusMap from "./StatusMap";
+
 import Pagination from "./Pagination";
+
 import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 import useSwrFetch from "hooks/useSwrFetch";
-import axios from "axios";
+
 import classNames from "classnames";
 import { Tab } from "@headlessui/react";
-import { timeStamp } from "console";
-import { useLogout } from "features/authentication";
 
 export const Table = () => {
-  const logout = useLogout();
+  
   const Authorization = getAuthorizationHeader();
   const token = Authorization.Authorization;
   const [data, setData] = useState([]);
-  const [offset, setOffset] = useState(0);
-  const [perPage, setPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
   const [sortOrder, setSortOrder] = useState("asc");
   const [searchQuery, setSearchQuery] = useState("");
+  const [filteredValue, setFilteredValue] = useState();
   const [type, setType] = useState("all");
-  const pageSize = 10;
+  const itemsPerPage = 2;
 
   // const pageCount = () => Math.floor(data?.pageSize / 5);
 
 
- const {data: d, error, isLoading} = useSwrFetch("/transactions/invoice-service-listing?limit=10&sort=-createdAt&offset=0&type=all", {method: "GET", headers: {}});
+ const {data: d, error, isLoading} = useSwrFetch(`/transactions/invoice-service-listing?offset=${currentPage}&limit=10&sort=${sortOrder}&search=${searchQuery}&type={type}`, {method: "GET", headers: {}});
  console.log(d, error, isLoading);
+ useEffect(()=>{
+  if(d)setData(d.data?.transactions);
+ },[d])
+//  const transation = d;
+   // Define functions to handle pagination
+//    const handleNextPage = () => {
+//     setOffset((prev) => prev + 1);
+//     d();
+//   };
+//   const handlePrevPage = () => {
+//     setOffset((prev) => prev - 1);
+//     d();
+//   };
+//  const handleSearch = (e) => {
+//     setSearchQuery(e.target.value);
+//   };
+const sortData = (property) => {
+  const sortedData = [...data].sort((a, b) => a[property] > b[property] ? 1 : -1);
+  setData(sortedData);
+}
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
 
-  
-  // const date = new Date(timestamp);
-  // const formattedTime = date.toLocaleTimeString("en-US", {
-  //   hour: "numeric",
-  //   hour12: true,
-  // });
+  // Change page
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
   return (
     <NoSsr>
       <div className="text-[14px] text-[#9E9E9E] border-b cursor-pointer">
@@ -80,74 +101,106 @@ export const Table = () => {
           <tr className="text-[#9E9E9E] ">
             <th className="px-8 py-4">
               {" "}
-              <div className="flex">
+              <div className="flex ">
                 Name
-                <span className="ml-2 mt-1">
-                  <ArrowsUpDownIcon className="h-3 w-3" />
-                </span>
+                <div className="flex flex-col ml-2 -mt-2 mr-3">
+                <p onClick={() => sortData('itemName')}>
+                  &#9650;
+                </p>
+                <p onClick={() =>sortData('itemName')}>&#9660;</p>
+                </div>
+                Date
+                <div className="flex flex-col ml-2 -mt-2">
+                <p onClick={() =>sortData('updatedAt')}>
+                  &#9650;
+                </p>
+                <p onClick={() =>sortData('updatedAt')}>&#9660;</p>
+                </div>
               </div>
             </th>
             <th>
-              <div className="flex px-3 py-4">
+              <div className="flex px-3 py-4 ml-4">
                 {" "}
                 Amount{" "}
-                <span className="ml-2 mt-1">
-                  <ArrowsUpDownIcon className="h-3 w-3" />
-                </span>
+                <div className="flex flex-col ml-2 -mt-2">
+                <p onClick={() =>sortData('subTotal')}>
+                  &#9650;
+                </p>
+                <p onClick={() =>sortData('subTotal')}>&#9660;</p>
+                </div>
               </div>
             </th>
             <th>
               <div className="flex px-3 py-4">
                 {" "}
                 Client{" "}
-                <span className="ml-2 mt-1">
-                  <ArrowsUpDownIcon className="h-3 w-3" />
-                </span>
+                <div className="flex flex-col ml-2 -mt-2">
+                <p onClick={() =>sortData('fullName')}>
+                  &#9650;
+                </p>
+                <p onClick={() =>sortData('fullName')}>&#9660;</p>
+                </div>
               </div>
             </th>
             <th>
               <div className="flex px-3 py-4">
                 {" "}
                 Status{" "}
-                <span className="ml-2 mt-1">
-                  <ArrowsUpDownIcon className="h-3 w-3" />
-                </span>
+                <div className="flex flex-col ml-2 -mt-2">
+                <p onClick={() =>sortData('status')} >
+                  &#9650;
+                </p>
+                <p onClick={() =>sortData('status')}>&#9660;</p>
+                </div>
               </div>
             </th>
           </tr>
         </thead>
         <tbody>
-          {d && d.data.transactions.map((item) => ( 
-            const day = new Date(item).toLocaleDateString('en-US', { weekday: 'long' });
-            return (
+        {!isLoading&& d.length === 0 && <tr>No data found</tr>}
+          {data && data.slice(indexOfFirstPost, indexOfLastPost).map((item) => ( 
             <tr
                 key={item._id}
                 className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
                 onClick={() => console.log(item._id)}
               >
                 <td className=" px-8 py-2">
-                  {item.invoice?.fixed.itemName}
+                  {item.invoice?.fixed?.itemName||item.service?.fixed?.itemName}
                   <br />
                   <span className="text-[12px] text-[#BEC2C6]  px-8 py-2">
-            {item.updatedAt}
+                    <FormatData updatedAt={item.updatedAt}/>
                   </span>
                 </td>
                 <td className="px-8 py-2">${item.invoice?.subTotal}</td>
-                <td>{item.invoice?.client.fullName}</td>
+                <td>{item.invoice?.client?.fullName||item.service?.client?.fullName}</td>
                 <td className="px-8 py-2">
                 <StatusMap status={item.invoice?.status} />
                 </td>
               </tr>
-            )))}
+            ))}
+            <tr ><td className="text-center m-auto left-[50%]">  <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={data.length}
+        paginate={paginate}
+        setData={setData}
+      /></td></tr>
         </tbody>
-        {/* <div className="text-center left-[50%]">
-          {offset > 0 && ( <button onClick={handlePrevPage} className="p-1 cursor-pointer" disabled={offset === 1}>&#8826;</button>  )}
+       
+        <div className="text-center left-[50%]">
+      
+          {/* {offset > 0 && ( <button onClick={handlePrevPage} className="p-1 cursor-pointer" disabled={offset === 1}>&#8826;</button>  )}
           <span className="px-2">Page {offset} - {pageCount()}</span>
-          {offset < pageCount() && ( <button onClick={handleNextPage} className="p-1 cursor-pointer" disabled={offset === totalPages}>&#8827;</button>  )}
-          </div> */}
+          {offset < pageCount() && ( <button onClick={handleNextPage} className="p-1 cursor-pointer" disabled={offset === totalPages}>&#8827;</button>  )} */}
+          </div>
       </table>
     </NoSsr>
   );
 };
-
+export function FormatData({updatedAt}:any) {
+  const dateObject = new Date(updatedAt);
+  const dayString = dateObject.toLocaleDateString("en-US",{ weekday: "long", hour: "numeric"});
+  return (
+    <div>{dayString}</div>
+  )
+}
 export default Table;
