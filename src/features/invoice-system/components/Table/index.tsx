@@ -145,7 +145,7 @@ export const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {d && d.data.transactions.map((item) => ( 
+          {d && d.data?.transactions.map((item) => ( 
             <tr
                 key={item._id}
                 className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
