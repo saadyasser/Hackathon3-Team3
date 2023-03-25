@@ -145,14 +145,14 @@ export const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {d && d.data?.transactions.map((item) => ( 
+          {d && d.data?.transactions.map((item: any) => ( 
             <tr
                 key={item._id}
                 className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
-                onClick={() => console.log(item._id && item.invoice?.client.fullName) }
+                onClick={() => console.log(item._id && item.service?.fixed[0].itemName) }
               >
                 <td className=" px-8 py-2">
-                  { item.invoice?.fixed[0].itemName || item.service?.fixed[0].itemName }
+                  { item.invoice?.fixed[0]?.itemName || item.service?.fixed[0]?.itemName }
                   <br />
                   <span className="text-[12px] text-[#BEC2C6]  px-8 py-2">
                   {item.updatedAt}
