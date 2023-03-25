@@ -9,7 +9,17 @@ import Contant2 from "./Search/Contant2";
 import Contant3 from "./Search/Contant3";
 import NameDisplay from "./NameDisplay";
 import ReactPaginate from "react-paginate";
-export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,toggle,data,setData,showLinks}: any) => {
+export const Table = ({
+  searchValue,
+  serviceTab,
+  allTab,
+  invoiceTab,
+  showInvoice,
+  toggle,
+  data,
+  setData,
+  showLinks,
+}: any) => {
   const [pageNumber, setPageNumber] = useState(0);
   const usersPerPage = 5;
   const [sortOrder, setSortOrder] = useState("asc");
@@ -37,12 +47,9 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
 
   useEffect(() => {
     if (d) setData(d.data?.transactions);
-  
   }, [d]);
 
-
-
-  const sortData = (property:any) => {
+  const sortData = (property: any) => {
     const sortedData = [...data].sort((a, b) =>
       a[property] > b[property] ? 1 : -1
     );
@@ -54,60 +61,59 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
 
   const pageCount = Math.ceil(data?.length / usersPerPage);
 
-  const changePage = ({ selected }:any) => {
+  const changePage = ({ selected }: any) => {
     setPageNumber(selected);
   };
- 
+
   return (
     <NoSsr>
       <div className="text-[14px] text-[#9E9E9E] border-b cursor-pointer">
         <Tab.Group>
           <Tab.List className="p-1">
-          {allTab &&(
-            <Tab
-       value="all"
-              className={({ selected }) =>
-                classNames(
-                  "py-2.5 px-3 focus:outline-none ",
-                  selected ? "border-b-2 border-[#4375FF] text-[#4375FF]" : ""
-                )
-              }
-            >
-              All
-            </Tab>
-)}
-{invoiceTab &&(
-            <Tab
-              value="invoices"
-              className={({ selected }) =>
-                classNames(
-                  "py-2.5 px-3 focus:outline-none ",
-                  selected ? "border-b-2 border-[#4375FF] text-[#4375FF]" : ""
-                )
-              }
-            >
-             
-              Invoices
-            </Tab>
-)}
-{serviceTab &&(
-            <Tab
-          value="links"
-              className={({ selected }) =>
-                classNames(
-                  "py-2.5 px-3 focus:outline-none",
-                  selected ? "border-b-2 border-[#4375FF] text-[#4375FF]" : ""
-                )
-              }
-            >
-              Links
-            </Tab>
-)}
+            {allTab && (
+              <Tab
+                value="all"
+                className={({ selected }) =>
+                  classNames(
+                    "py-2.5 px-3 focus:outline-none ",
+                    selected ? "border-b-2 border-[#4375FF] text-[#4375FF]" : ""
+                  )
+                }
+              >
+                All
+              </Tab>
+            )}
+            {invoiceTab && (
+              <Tab
+                value="invoices"
+                className={({ selected }) =>
+                  classNames(
+                    "py-2.5 px-3 focus:outline-none ",
+                    selected ? "border-b-2 border-[#4375FF] text-[#4375FF]" : ""
+                  )
+                }
+              >
+                Invoices
+              </Tab>
+            )}
+            {serviceTab && (
+              <Tab
+                value="links"
+                className={({ selected }) =>
+                  classNames(
+                    "py-2.5 px-3 focus:outline-none",
+                    selected ? "border-b-2 border-[#4375FF] text-[#4375FF]" : ""
+                  )
+                }
+              >
+                Links
+              </Tab>
+            )}
           </Tab.List>
           <Tab.Panels>
         <Tab.Panel><div><Contant1 toggle={toggle} handleStatusFilterChange={handleStatusFilterChange} statusFilter={statusFilter}/></div></Tab.Panel>
-        <Tab.Panel><Contant2 showInvoice={showInvoice}/></Tab.Panel>
-        <Tab.Panel><Contant3 showLinks={showLinks}/></Tab.Panel>
+        <Tab.Panel><Contant2 showInvoice={showInvoice}  handleStatusFilterChange={handleStatusFilterChange}/></Tab.Panel>
+        <Tab.Panel><Contant3 showLinks={showLinks}  handleStatusFilterChange={handleStatusFilterChange}/></Tab.Panel>
       </Tab.Panels>
         </Tab.Group>
       </div>
@@ -190,7 +196,6 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
               </tr>
             ))}
         </tbody>
-       
       </table>
       <ReactPaginate
         previousLabel={"<"}
@@ -215,5 +220,5 @@ export function FormatData({ updatedAt }: any) {
   return <div>{dayString}</div>;
 }
 
-
 export default Table;
+
