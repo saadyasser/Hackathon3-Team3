@@ -266,12 +266,23 @@ const DrawelInvoiceLink: any = (): any => {
             <Button
               className="bg-white hover:bg-white text-blue-600 pr-16 pl-16"
               onClick={() => {
+                router.push({
+                  pathname: "/invoices-page/create-link",
+                  query: {
+                    data: JSON.stringify({
+                      fixed: invoiceDataService.fixed,
+                      currency: invoiceDataService.currency,
+                    }),
+                    id: invoiceDataService._id,
+                    url: "https://talents-valley-backend.herokuapp.com/api/service/edit/",
+                  },
+                });
                 // router.push({
                 //   pathname: "/invoices-page/create-link",
                 //   state: {
-                //     fixed: invoiceDataService.fixed,
-                //     currency: invoiceDataService.currency,
-                //     id: invoiceDataService._id,
+                // fixed: invoiceDataService.fixed,
+                // currency: invoiceDataService.currency,
+                // id: invoiceDataService._id,
                 //     url: "service/edit/",
                 //   },
                 // });

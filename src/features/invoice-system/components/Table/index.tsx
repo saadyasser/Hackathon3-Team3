@@ -24,7 +24,7 @@ export const Table = ({
   const usersPerPage = 5;
   const [sortOrder, setSortOrder] = useState("asc");
   const [type, setType] = useState("all");
-  const [statusFilter, setStatusFilter] = useState('sent');
+  const [statusFilter, setStatusFilter] = useState("sent");
   const pagesVisited = pageNumber * usersPerPage;
 
   function handleType(type: string) {
@@ -33,7 +33,6 @@ export const Table = ({
 
     setType(type);
   }
-
 
   const {
     data: d,
@@ -56,7 +55,7 @@ export const Table = ({
     );
     setData(sortedData);
   };
-  const handleStatusFilterChange = (event:any) => {
+  const handleStatusFilterChange = (event: any) => {
     setStatusFilter(event.target.value);
   };
 
@@ -65,7 +64,7 @@ export const Table = ({
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
   };
-  
+
   return (
     <NoSsr>
       <div className="text-[14px] text-[#9E9E9E] border-b cursor-pointer">
@@ -74,7 +73,7 @@ export const Table = ({
             {allTab && (
               <Tab
                 value="all"
-                onClick={(e)=> handleType('all')}
+                onClick={(e) => handleType("all")}
                 className={({ selected }) =>
                   classNames(
                     "py-2.5 px-3 focus:outline-none ",
@@ -88,7 +87,7 @@ export const Table = ({
             {invoiceTab && (
               <Tab
                 value="invoices"
-                onClick={(e)=> handleType('invoice')}
+                onClick={(e) => handleType("invoice")}
                 className={({ selected }) =>
                   classNames(
                     "py-2.5 px-3 focus:outline-none ",
@@ -102,7 +101,7 @@ export const Table = ({
             {serviceTab && (
               <Tab
                 value="links"
-                onClick={(e)=> handleType('service')}
+                onClick={(e) => handleType("service")}
                 className={({ selected }) =>
                   classNames(
                     "py-2.5 px-3 focus:outline-none",
@@ -115,10 +114,28 @@ export const Table = ({
             )}
           </Tab.List>
           <Tab.Panels>
-        <Tab.Panel><div><Contant1 toggle={toggle} handleStatusFilterChange={handleStatusFilterChange} statusFilter={statusFilter}/></div></Tab.Panel>
-        <Tab.Panel><Contant2 showInvoice={showInvoice}  handleStatusFilterChange={handleStatusFilterChange}/></Tab.Panel>
-        <Tab.Panel><Contant3 showLinks={showLinks}  handleStatusFilterChange={handleStatusFilterChange}/></Tab.Panel>
-      </Tab.Panels>
+            <Tab.Panel>
+              <div>
+                <Contant1
+                  toggle={toggle}
+                  handleStatusFilterChange={handleStatusFilterChange}
+                  statusFilter={statusFilter}
+                />
+              </div>
+            </Tab.Panel>
+            <Tab.Panel>
+              <Contant2
+                showInvoice={showInvoice}
+                handleStatusFilterChange={handleStatusFilterChange}
+              />
+            </Tab.Panel>
+            <Tab.Panel>
+              <Contant3
+                showLinks={showLinks}
+                handleStatusFilterChange={handleStatusFilterChange}
+              />
+            </Tab.Panel>
+          </Tab.Panels>
         </Tab.Group>
       </div>
       <table className="w-full text-sm text-left text-gray-500 cursor-pointer  ">
@@ -173,32 +190,40 @@ export const Table = ({
         </thead>
         <tbody>
           {!isLoading && data?.length === 0 && <tr>No data found</tr>}
-          {data &&data?.slice(pagesVisited, pagesVisited + usersPerPage).map((item:any) => (
-              <tr
-                key={item._id}
-                className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
-                onClick={() =>
-                  console.log(item._id && item.invoice?.client.fullName)
-                }
-              >
-                <td className=" px-8 py-2">
-                  <NameDisplay item={item.invoice?.fixed[0]?.itemName||item.service?.fixed[0]?.itemName}/>
-                  <br />
-                  <span className="text-[12px] text-[#BEC2C6]  px-8 py-2">
-                    <FormatData updatedAt={item.updatedAt} />
-                  </span>
-                </td>
-                <td className="px-8 py-2">
-                  ${item.invoice?.subTotal || item.service?.subTotal}
-                </td>
-                <td>{item.invoice?.client.fullName|| '-'}</td>
-                <td className="px-8 py-2">
-                  <StatusMap
-                    status={item.invoice?.status || item.service?.status}
-                  />
-                </td>
-              </tr>
-            ))}
+          {data &&
+            data
+              ?.slice(pagesVisited, pagesVisited + usersPerPage)
+              .map((item: any) => (
+                <tr
+                  key={item._id}
+                  className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
+                  onClick={() =>
+                    console.log(item._id && item.invoice?.client.fullName)
+                  }
+                >
+                  <td className=" px-8 py-2">
+                    <NameDisplay
+                      item={
+                        item.invoice?.fixed[0]?.itemName ||
+                        item.service?.fixed[0]?.itemName
+                      }
+                    />
+                    <br />
+                    <span className="text-[12px] text-[#BEC2C6]  px-8 py-2">
+                      <FormatData updatedAt={item.updatedAt} />
+                    </span>
+                  </td>
+                  <td className="px-8 py-2">
+                    ${item.invoice?.subTotal || item.service?.subTotal}
+                  </td>
+                  <td>{item.invoice?.client.fullName || "-"}</td>
+                  <td className="px-8 py-2">
+                    <StatusMap
+                      status={item.invoice?.status || item.service?.status}
+                    />
+                  </td>
+                </tr>
+              ))}
         </tbody>
       </table>
       <ReactPaginate
@@ -225,4 +250,3 @@ export function FormatData({ updatedAt }: any) {
 }
 
 export default Table;
-

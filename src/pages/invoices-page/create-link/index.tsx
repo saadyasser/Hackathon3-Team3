@@ -16,29 +16,13 @@ const InvoicesPage = () => {
   const logout = useLogout();
 
   const router = useRouter();
-  console.log(router, "router");
+  const data = JSON.parse(router.query.data);
+  const url: any = router.query.url;
+  const id: any = router.query.id;
 
   return (
     <NestedLayout>
-      <LinkForm
-        id="641c418f86abbe326e82bc04"
-        url="https://talents-valley-backend.herokuapp.com/api/service/edit/"
-        data={{
-          fixed: [
-            {
-              itemName: "prode edited",
-              description: "test service",
-              price: 300,
-            },
-            {
-              itemName: "edited job",
-              description: "test service",
-              price: 300,
-            },
-          ],
-          currency: "USD",
-        }}
-      />
+      <LinkForm id={id} url={url} data={data} />
     </NestedLayout>
   );
 };
