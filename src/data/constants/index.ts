@@ -23,13 +23,8 @@ export const API_SERVICES_URLS = {
   PAYMENT: {
     STRIPE_SESSION: "/invoice/payment/stripe/create-checkout-session",
   },
-<<<<<<< HEAD
-  INVOICE: {
-   INVOICEPAGE: "/transactions/invoice-service-listing",
-=======
   INVOICES: {
     CREATE_LINK: "/service/create",
->>>>>>> 59e773534a8b51a98c974f4579bbf35f6224ab36
   },
 } as const;
 
