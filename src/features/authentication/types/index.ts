@@ -22,6 +22,16 @@ export type SignUpFormInputsType = {
   mobile: string;
   country: string;
 };
+export type CreateLinkInputsType = {
+  currency: string;
+  fixed: [
+    {
+      itemName: string;
+      description: string;
+      price: string;
+    }
+  ];
+};
 
 export type AuthResponseType = {
   accessToken: string;
@@ -30,6 +40,7 @@ export type AuthResponseType = {
 };
 
 export type SignInResponseType = APIResponseType<AuthResponseType>;
+export type CreateLinkResponseType = APIResponseType<AuthResponseType>;
 
 export type SignUpResponseType = APIResponseType<AuthResponseType>;
 

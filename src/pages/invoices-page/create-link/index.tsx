@@ -3,6 +3,7 @@ import { useCurrentUser, useLogout } from "features/authentication";
 import { Button, Dropdown } from "components";
 import { NestedLayout } from "layouts";
 import { LinkForm } from "features/invoice-system/components";
+import { Preview } from "features/invoices";
 
 const options = [
   { value: "settings", label: "Account settings" },
@@ -14,10 +15,27 @@ const InvoicesPage = () => {
   const logout = useLogout();
 
   return (
-    <NestedLayout
-      form={<LinkForm id="" url="" data={[]} />}
-      preview={<p>Preview section</p>}
-    ></NestedLayout>
+    <NestedLayout>
+      <LinkForm
+        id="641c418f86abbe326e82bc04"
+        url="https://talents-valley-backend.herokuapp.com/api/service/edit/"
+        data={{
+          fixed: [
+            {
+              itemName: "prode edited",
+              description: "test service",
+              price: 300,
+            },
+            {
+              itemName: "edited job",
+              description: "test service",
+              price: 300,
+            },
+          ],
+          currency: "USD",
+        }}
+      />
+    </NestedLayout>
   );
 };
 

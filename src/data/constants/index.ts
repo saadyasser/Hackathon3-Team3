@@ -21,6 +21,9 @@ export const API_SERVICES_URLS = {
   PAYMENT: {
     STRIPE_SESSION: "/invoice/payment/stripe/create-checkout-session",
   },
+  INVOICES: {
+    CREATE_LINK: "/service/create",
+  },
 } as const;
 
 export const COOKIES_KEYS = {
