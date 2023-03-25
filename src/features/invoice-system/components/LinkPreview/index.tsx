@@ -72,7 +72,7 @@ const LinkPreview = ({ data }: { data: any }) => {
       </div>
       {arrangedData ? (
         arrangedData?.fixed.map((item: any) => {
-          total += parseFloat(item.price);
+          total += item.price ? parseFloat(item.price) : 0;
           return (
             <div key={item._id} className="flex items-start justify-between">
               <span>{item.itemName}</span>
