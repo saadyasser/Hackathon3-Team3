@@ -7,3 +7,31 @@
     @apply bg-gray-light;
   }
 }
+.paginationBttns {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 8px;
+  color: #8C8C8C;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: #8C8C8C;
+
+}
+
+.paginationActive a {
+  color: #8C8C8C;
+
+}
+
+.paginationDisabled a {
+  color: #8C8C8C;
+}

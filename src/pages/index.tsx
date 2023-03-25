@@ -1,12 +1,13 @@
 import { BalanceCard, Card } from "components";
 import { GeneralLayout } from "layouts";
+import {  useLogout } from "features/authentication";
+import { Button } from "components";
 // import { NextPageWithLayout } from "types";
 const Home: any = (): any => {
+  const logout = useLogout();
   return (
     <GeneralLayout captionProp={<BalanceCard />}>
-      <Card>
-        <div>test layout</div>
-      </Card>
+        <Button onClick={logout}>Logout</Button>
     </GeneralLayout>
   );
 };
