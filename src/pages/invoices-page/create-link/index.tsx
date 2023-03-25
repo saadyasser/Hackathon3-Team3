@@ -4,6 +4,7 @@ import { Button, Dropdown } from "components";
 import { NestedLayout } from "layouts";
 import { LinkForm } from "features/invoice-system/components";
 import { Preview } from "features/invoices";
+import { useRouter } from "next/router";
 
 const options = [
   { value: "settings", label: "Account settings" },
@@ -13,6 +14,9 @@ const options = [
 const InvoicesPage = () => {
   const { user } = useCurrentUser();
   const logout = useLogout();
+
+  const router = useRouter();
+  console.log(router, "router");
 
   return (
     <NestedLayout>
