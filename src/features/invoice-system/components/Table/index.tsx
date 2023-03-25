@@ -1,32 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Skeleton, NoSsr, Button } from "components";
-import InvoiceFilter from "./InvoiceFilter";
 import StatusMap from "./StatusMap";
 import useSwrFetch from "hooks/useSwrFetch";
 import classNames from "classnames";
 import { Tab } from "@headlessui/react";
+import Contant1 from "./Search/Contant1";
+import Contant2 from "./Search/Contant2";
+import Contant3 from "./Search/Contant3";
 import NameDisplay from "./NameDisplay";
-export const Table = ({ searchValue }: any) => {
-  const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+import ReactPaginate from "react-paginate";
+export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,toggle,data,setData,showLinks}: any) => {
+  const [pageNumber, setPageNumber] = useState(0);
+  const usersPerPage = 5;
   const [sortOrder, setSortOrder] = useState("asc");
-  const [activeTab, setActiveTab] = useState(null);
-  const [dropdownTab, setDropdownTab] = useState(null);
   const [type, setType] = useState("all");
-
+  const [statusFilter, setStatusFilter] = useState('');
+  const pagesVisited = pageNumber * usersPerPage;
   function handleType(type: string) {
     console.log("test");
     console.log(type);
 
     setType(type);
   }
+  // filter=${statusFilter}
 
   const {
     data: d,
     error,
     isLoading,
   } = useSwrFetch(
-    `/transactions/invoice-service-listing?offset=${currentPage}&limit=10&sort=${sortOrder}&search=${searchValue}&type={type}`,
+    `/transactions/invoice-service-listing?offset=${pageNumber}&limit=5&sort=${sortOrder}&search=${searchValue}&type={type}`,
     { method: "GET", headers: {} }
   );
 
@@ -34,32 +37,35 @@ export const Table = ({ searchValue }: any) => {
 
   useEffect(() => {
     if (d) setData(d.data?.transactions);
+  
   }, [d]);
 
-  console.log(data,"test");
 
-  const sortData = (property) => {
+
+  const sortData = (property:any) => {
     const sortedData = [...data].sort((a, b) =>
       a[property] > b[property] ? 1 : -1
     );
     setData(sortedData);
   };
-  const NextPaginate = () => {
-    setCurrentPage((prev) => prev + 1);
+  const handleStatusFilterChange = (event) => {
+    setStatusFilter(event.target.value);
   };
-  const PrevPaginate = () => {
-    setCurrentPage((prev) => prev - 1);
-  };
-  const paginateCount = () => Math.floor(d?.data?.count / 5);
 
+  const pageCount = Math.ceil(data?.length / usersPerPage);
+
+  const changePage = ({ selected }:any) => {
+    setPageNumber(selected);
+  };
  
   return (
     <NoSsr>
       <div className="text-[14px] text-[#9E9E9E] border-b cursor-pointer">
         <Tab.Group>
           <Tab.List className="p-1">
+          {allTab &&(
             <Tab
-              onClick={() => handleType("all")}
+       value="all"
               className={({ selected }) =>
                 classNames(
                   "py-2.5 px-3 focus:outline-none ",
@@ -69,8 +75,10 @@ export const Table = ({ searchValue }: any) => {
             >
               All
             </Tab>
+)}
+{invoiceTab &&(
             <Tab
-              onClick={() => handleType("invoice")}
+              value="invoices"
               className={({ selected }) =>
                 classNames(
                   "py-2.5 px-3 focus:outline-none ",
@@ -78,10 +86,13 @@ export const Table = ({ searchValue }: any) => {
                 )
               }
             >
+             
               Invoices
             </Tab>
+)}
+{serviceTab &&(
             <Tab
-              onClick={() => handleType("service")}
+          value="links"
               className={({ selected }) =>
                 classNames(
                   "py-2.5 px-3 focus:outline-none",
@@ -91,7 +102,13 @@ export const Table = ({ searchValue }: any) => {
             >
               Links
             </Tab>
+)}
           </Tab.List>
+          <Tab.Panels>
+        <Tab.Panel><div><Contant1 toggle={toggle}/></div></Tab.Panel>
+        <Tab.Panel><Contant2 showInvoice={showInvoice}/></Tab.Panel>
+        <Tab.Panel><Contant3 showLinks={showLinks}/></Tab.Panel>
+      </Tab.Panels>
         </Tab.Group>
       </div>
       <table className="w-full text-sm text-left text-gray-500 cursor-pointer  ">
@@ -146,7 +163,7 @@ export const Table = ({ searchValue }: any) => {
         </thead>
         <tbody>
           {!isLoading && data?.length === 0 && <tr>No data found</tr>}
-          {data &&data?.map((item) => (
+          {data &&data?.slice(pagesVisited, pagesVisited + usersPerPage).map((item:any) => (
               <tr
                 key={item._id}
                 className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
@@ -173,24 +190,19 @@ export const Table = ({ searchValue }: any) => {
               </tr>
             ))}
         </tbody>
-        <div className="text-center left-[50%]">
-          {currentPage > 0 && (
-            <button onClick={PrevPaginate} className="p-1 cursor-pointer">
-              <span>&#8826;</span>{" "}
-            </button>
-          )}
-
-          <span className="px-2">
-            {" "}
-            Page {currentPage} - {paginateCount()}
-          </span>
-          {currentPage < paginateCount() && (
-            <button onClick={NextPaginate} className="p-1 cursor-pointer">
-              <span>&#8827;</span>
-            </button>
-          )}
-        </div>
+       
       </table>
+      <ReactPaginate
+        previousLabel={"<"}
+        nextLabel={">"}
+        pageCount={pageCount}
+        onPageChange={changePage}
+        containerClassName={"paginationBttns"}
+        previousLinkClassName={"previousBttn"}
+        nextLinkClassName={"nextBttn"}
+        disabledClassName={"paginationDisabled"}
+        activeClassName={"paginationActive"}
+      />
     </NoSsr>
   );
 };
@@ -205,3 +217,14 @@ export function FormatData({ updatedAt }: any) {
 
 
 export default Table;
+//   <select value={statusFilter} onChange={handleStatusFilterChange}>
+//   <option value="">All</option>
+//   <option value="paid">Paid</option>
+//   <option value="sent">Sent</option>
+//   <option value="pending_payment">Pending Payment</option>
+//   <option value="canceled">Canceled</option>
+//   <option value="active">Active</option>
+//   <option value="inactive">Inactive</option>
+//   <option value="disapproved">Disapproved</option>
+//   <option value="refunded">Refunded</option>
+// </select>
