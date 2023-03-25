@@ -13,12 +13,14 @@ import useModal from "hooks/useModal";
 import useSwrFetch from "hooks/useSwrFetch";
 import { getCookie } from "lib/js-cookie";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import Drawel from "../Drawel";
 import styles from './style.module.css';
 
 
 const DrawelInvoiceLink: any = (): any => {
+    const router = useRouter();
     const modalDelete = useModal();
     const modalCancle = useModal();
 
@@ -236,10 +238,15 @@ const DrawelInvoiceLink: any = (): any => {
             </div> */}
 
             {(invoiceDataService?.status === "disapproved" || invoiceDataService?.status === "pending_approval") && (
-                <div className="mb-2">
+                <div className="mb-10">
                     <div className="mt-2 ml-5 mr-5 flex justify-between">
                         <Button className="bg-white hover:bg-white text-black pr-14 pl-14" onClick={modalCancle.openModal}>Cancel</Button>
-                        <Button className="bg-white hover:bg-white text-blue-600 pr-16 pl-16">Edit</Button>
+                        <Button className="bg-white hover:bg-white text-blue-600 pr-16 pl-16" onClick={() => {
+                            router.push({
+                                pathname: '/invoices-page/create-link',
+                                state: { fixed: invoiceDataService.fixed, currency: invoiceDataService.currency, id: invoiceDataService._id, url: "service/edit/" }
+                            })
+                        }}>Edit</Button>
                     </div>
                 </div>
             )
@@ -249,7 +256,8 @@ const DrawelInvoiceLink: any = (): any => {
                 <div className="mb-2">
                     <div className="mt-2 ml-5 mr-5 flex justify-between">
                         <Button className="bg-white text-black pr-14 pl-14" onClick={changeStateToActive}>Switch to Active</Button>
-                        <Button className="bg-white text-blue-600 pr-16 pl-16">Edit</Button>
+                        <Button className="bg-white text-blue-600 pr-16 pl-16" 
+                           >Edit</Button>
                     </div>
                 </div>
             )
