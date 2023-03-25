@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 
 export const FormHeader = (): JSX.Element => {
   const router = useRouter();
+  console.log(router);
 
   return (
     <>

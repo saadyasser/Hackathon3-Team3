@@ -1,0 +1,18 @@
+[
+  {
+    "value": "USD",
+    "label": "USD"
+  },
+  {
+    "value": "EUR",
+    "label": "EUR"
+  },
+  {
+    "value": "ISL",
+    "label": "ISL"
+  },
+  {
+    "value": "JOD",
+    "label": "JOD"
+  }
+]

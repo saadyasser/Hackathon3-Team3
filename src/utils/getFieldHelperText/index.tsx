@@ -7,7 +7,7 @@ import {
 
 export const getFieldHelperText = (
   status: "success" | "error" | "info" = "error",
-  message?: string
+  message?: string | any
 ) => {
   let helperTextClassName = "text-red";
   let helperTextIcon = <ErrorIconMini className="w-5 h-5" />;

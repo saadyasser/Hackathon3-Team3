@@ -18,6 +18,10 @@ export const API_SERVICES_URLS = {
     INVOICE_PREVIEW: (id: string) => `/invoice/client/preview/${id}`,
     PAYMENT_OPTIONS: (id: string) => `/invoice/client/payment-options/${id}`,
   },
+  FREELANCER: {
+    CREATE_INVOICE: "/invoice/create",
+    UPDATE_INVOICE: (id: number | string) => `/invoice/edit/${id}`,
+  },
   PAYMENT: {
     STRIPE_SESSION: "/invoice/payment/stripe/create-checkout-session",
   },

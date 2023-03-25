@@ -1,8 +1,8 @@
 import Card from "components/Card";
 import { useCurrentUser, useLogout } from "features/authentication";
 import { Button, Dropdown } from "components";
-import { NestedLayout } from "layouts";
-import { LinkForm } from "features/invoice-system/components";
+import { InvoiceCard, Preview } from "features/invoice-system";
+import NestedLayoutCreateInvoice from "layouts/NestedLayoutCreateInvoice";
 
 const options = [
   { value: "settings", label: "Account settings" },
@@ -10,14 +10,11 @@ const options = [
 ];
 
 const InvoicesPage = () => {
-  const { user } = useCurrentUser();
-  const logout = useLogout();
-
   return (
-    <NestedLayout
-      form={<LinkForm id="" url="" data={[]} />}
-      preview={<p>Preview section</p>}
-    ></NestedLayout>
+    <NestedLayoutCreateInvoice
+      form={(obj: any) => <InvoiceCard {...obj} />}
+      preview={(fieldsData: any) => <Preview {...fieldsData} />}
+    ></NestedLayoutCreateInvoice>
   );
 };
 
