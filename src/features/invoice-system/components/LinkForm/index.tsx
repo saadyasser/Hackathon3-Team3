@@ -40,6 +40,10 @@ export const LinkForm = ({
   url: string;
   data: any;
 }): JSX.Element => {
+  data.fixed = data.fixed.map((obj: any) => {
+    delete obj._id;
+    return obj;
+  });
   const [LinkData, setLinkData] = useState(
     id
       ? data
@@ -54,7 +58,6 @@ export const LinkForm = ({
           ],
         }
   );
-  console.log(LinkData);
 
   const authHeader = getAuthorizationHeader();
   const router = useRouter();
@@ -96,6 +99,14 @@ export const LinkForm = ({
     const currency = { currency: data["currency"] };
     delete data.currency;
     const objAarr = returnArrayOfObjects(data);
+    console.log(
+      {
+        ...currency,
+        ...objAarr,
+      },
+      "for reg"
+    );
+
     if (loading) return;
     createLink({
       ...currency,

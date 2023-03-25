@@ -4,6 +4,7 @@ import { Button, Dropdown } from "components";
 import { NestedLayout } from "layouts";
 import { LinkForm } from "features/invoice-system/components";
 import { Preview } from "features/invoices";
+import { useRouter } from "next/router";
 
 const options = [
   { value: "settings", label: "Account settings" },
@@ -14,27 +15,14 @@ const InvoicesPage = () => {
   const { user } = useCurrentUser();
   const logout = useLogout();
 
+  const router = useRouter();
+  const data = JSON.parse(router.query.data);
+  const url: any = router.query.url;
+  const id: any = router.query.id;
+
   return (
     <NestedLayout>
-      <LinkForm
-        id="641c418f86abbe326e82bc04"
-        url="https://talents-valley-backend.herokuapp.com/api/service/edit/"
-        data={{
-          fixed: [
-            {
-              itemName: "prode edited",
-              description: "test service",
-              price: 300,
-            },
-            {
-              itemName: "edited job",
-              description: "test service",
-              price: 300,
-            },
-          ],
-          currency: "USD",
-        }}
-      />
+      <LinkForm id={id} url={url} data={data} />
     </NestedLayout>
   );
 };
