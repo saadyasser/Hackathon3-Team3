@@ -1,7 +1,7 @@
 import React from 'react'
 import { NoSsr, Card} from "components";
 
-export const Contant3 = ({showLinks}:any) => {
+export const Contant3 = ({showLinks,statusFilter,handleStatusFilterChange}:any) => {
   return (
     <NoSsr>     
     <div>
@@ -10,26 +10,26 @@ export const Contant3 = ({showLinks}:any) => {
             <ul>
                 <li>
                 <label className="text-[#707070] text-sm">
-                    <input type="checkbox" className="mr-4" name="active" value="Active"/>
+                    <input type="checkbox" className="mr-4" value="active"    onChange={handleStatusFilterChange}/>
                     Active
                 </label>
                 </li>
                 <li>
                 <label className="text-[#707070] text-sm">
-                    <input type="checkbox" className="mr-4" name="inactive" value="inactive"/>
+                    <input type="checkbox" className="mr-4" value="inactive"    onChange={handleStatusFilterChange}/>
                     inactive
                 </label>
                 </li>
 
                 <li>
                 <label className="text-[#707070] text-sm">
-                    <input type="checkbox" className="mr-4" name="rejected" value="rejected"/>
+                    <input type="checkbox" className="mr-4" value="rejected"    onChange={handleStatusFilterChange}/>
                     rejected
                 </label>
                 </li>
                 <li>
                 <label className="text-[#707070] text-sm">
-                    <input type="checkbox" className="mr-4" name="pending" value="pending"/>
+                    <input type="checkbox" className="mr-4" value="pending"    onChange={handleStatusFilterChange}/>
                     pending
                 </label>
                 </li>

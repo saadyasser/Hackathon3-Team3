@@ -14,7 +14,7 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
   const usersPerPage = 5;
   const [sortOrder, setSortOrder] = useState("asc");
   const [type, setType] = useState("all");
-  const [statusFilter, setStatusFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('sent');
   const pagesVisited = pageNumber * usersPerPage;
   function handleType(type: string) {
     console.log("test");
@@ -22,14 +22,14 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
 
     setType(type);
   }
-  // filter=${statusFilter}
+  // 
 
   const {
     data: d,
     error,
     isLoading,
   } = useSwrFetch(
-    `/transactions/invoice-service-listing?offset=${pageNumber}&limit=5&sort=${sortOrder}&search=${searchValue}&type={type}`,
+    `/transactions/invoice-service-listing?offset=${pageNumber}&limit=20&sort=${sortOrder}&search=${searchValue}&type=${type}&filter=${statusFilter}`,
     { method: "GET", headers: {} }
   );
 
@@ -48,7 +48,7 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
     );
     setData(sortedData);
   };
-  const handleStatusFilterChange = (event) => {
+  const handleStatusFilterChange = (event:any) => {
     setStatusFilter(event.target.value);
   };
 
@@ -105,7 +105,7 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
 )}
           </Tab.List>
           <Tab.Panels>
-        <Tab.Panel><div><Contant1 toggle={toggle}/></div></Tab.Panel>
+        <Tab.Panel><div><Contant1 toggle={toggle} handleStatusFilterChange={handleStatusFilterChange} statusFilter={statusFilter}/></div></Tab.Panel>
         <Tab.Panel><Contant2 showInvoice={showInvoice}/></Tab.Panel>
         <Tab.Panel><Contant3 showLinks={showLinks}/></Tab.Panel>
       </Tab.Panels>
@@ -125,7 +125,7 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
                 Date
                 <div className="flex flex-col ml-2 -mt-2">
                   <p onClick={() => sortData("data")}>&#9650;</p>
-                  <p onClick={() => sortData("data")}>&#9660;</p>
+                  <p onClick={() => sortData("-data")}>&#9660;</p>
                 </div>
               </div>
             </th>
@@ -134,8 +134,8 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
                 {" "}
                 Amount{" "}
                 <div className="flex flex-col ml-2 -mt-2">
-                  <p onClick={() => sortData("data")}>&#9650;</p>
-                  <p onClick={() => sortData("data")}>&#9660;</p>
+                  <p onClick={() => sortData("subTotal")}>&#9650;</p>
+                  <p onClick={() => sortData("-subTotal")}>&#9660;</p>
                 </div>
               </div>
             </th>
@@ -144,8 +144,8 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
                 {" "}
                 Client{" "}
                 <div className="flex flex-col ml-2 -mt-2">
-                  <p onClick={() => sortData("data")}>&#9650;</p>
-                  <p onClick={() => sortData("data")}>&#9660;</p>
+                  <p onClick={() => sortData("fullName")}>&#9650;</p>
+                  <p onClick={() => sortData("-fullName")}>&#9660;</p>
                 </div>
               </div>
             </th>
@@ -154,8 +154,8 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
                 {" "}
                 Status{" "}
                 <div className="flex flex-col ml-2 -mt-2">
-                  <p onClick={() => sortData("data")}>&#9650;</p>
-                  <p onClick={() => sortData("data")}>&#9660;</p>
+                  <p onClick={() => sortData("status")}>&#9650;</p>
+                  <p onClick={() => sortData("status")}>&#9660;</p>
                 </div>
               </div>
             </th>
@@ -172,7 +172,7 @@ export const Table = ({ searchValue,serviceTab,allTab,invoiceTab,showInvoice,tog
                 }
               >
                 <td className=" px-8 py-2">
-                 {item.invoice?.fixed[0].itemName||item.service?.fixed[0].itemName}
+                 {item.invoice?.fixed[0]?.itemName||item.service?.fixed[0]?.itemName}
                   <br />
                   <span className="text-[12px] text-[#BEC2C6]  px-8 py-2">
                     <FormatData updatedAt={item.updatedAt} />
@@ -217,14 +217,3 @@ export function FormatData({ updatedAt }: any) {
 
 
 export default Table;
-//   <select value={statusFilter} onChange={handleStatusFilterChange}>
-//   <option value="">All</option>
-//   <option value="paid">Paid</option>
-//   <option value="sent">Sent</option>
-//   <option value="pending_payment">Pending Payment</option>
-//   <option value="canceled">Canceled</option>
-//   <option value="active">Active</option>
-//   <option value="inactive">Inactive</option>
-//   <option value="disapproved">Disapproved</option>
-//   <option value="refunded">Refunded</option>
-// </select>
