@@ -72,7 +72,7 @@ export const Table = ({
           <Tab.List className="p-1">
             {allTab && (
               <Tab
-                // value="all"
+                value="all"
                 onClick={(e)=> handleType("all")}
                 className={({ selected }) =>
                   classNames(
@@ -86,7 +86,7 @@ export const Table = ({
             )}
             {invoiceTab && (
               <Tab
-                // value="invoices"
+                value="invoices"
                 onClick={(e)=> handleType("invoice")}
                 className={({ selected }) =>
                   classNames(
@@ -100,7 +100,7 @@ export const Table = ({
             )}
             {serviceTab && (
               <Tab
-                // value="links"
+                value="service"
                 onClick={(e)=> handleType("service")}
                 className={({ selected }) =>
                   classNames(
