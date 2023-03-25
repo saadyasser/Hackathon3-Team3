@@ -72,7 +72,8 @@ export const Table = ({
           <Tab.List className="p-1">
             {allTab && (
               <Tab
-                value="all"
+                // value="all"
+                onClick={(e)=> handleType("all")}
                 className={({ selected }) =>
                   classNames(
                     "py-2.5 px-3 focus:outline-none ",
@@ -85,7 +86,8 @@ export const Table = ({
             )}
             {invoiceTab && (
               <Tab
-                value="invoices"
+                // value="invoices"
+                onClick={(e)=> handleType("invoice")}
                 className={({ selected }) =>
                   classNames(
                     "py-2.5 px-3 focus:outline-none ",
@@ -98,7 +100,8 @@ export const Table = ({
             )}
             {serviceTab && (
               <Tab
-                value="links"
+                // value="links"
+                onClick={(e)=> handleType("service")}
                 className={({ selected }) =>
                   classNames(
                     "py-2.5 px-3 focus:outline-none",
