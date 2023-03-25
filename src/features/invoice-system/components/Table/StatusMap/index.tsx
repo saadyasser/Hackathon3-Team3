@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 
 export const StatusMap = ({ status}:any) => {
-    const [color, setColor] = useState("black");
+    const [color, setColor] = useState("#000");
     useEffect(() => {
       if (status === 'pending') {
         setColor('#DDAC54');
@@ -12,7 +12,7 @@ export const StatusMap = ({ status}:any) => {
       }else if (status === 'Inactive') {
             setColor('#707070');
       } else {
-        setColor('');
+        setColor('black');
       }
     }, [status]);
     return (
