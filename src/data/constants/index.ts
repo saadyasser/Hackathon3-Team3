@@ -18,10 +18,13 @@ export const API_SERVICES_URLS = {
     INVOICE_PREVIEW: (id: string) => `/invoice/client/preview/${id}`,
     PAYMENT_OPTIONS: (id: string) => `/invoice/client/payment-options/${id}`,
     INVOICE_DETAIL: (id: string) => `/invoice/${id}`,
-    INVOICE_LINK_DETAILS: (id: string) => `/service/details/${id}`
+    INVOICE_LINK_DETAILS: (id: string) => `/service/details/${id}`,
   },
   PAYMENT: {
     STRIPE_SESSION: "/invoice/payment/stripe/create-checkout-session",
+  },
+  INVOICES: {
+    CREATE_LINK: "/service/create",
   },
 } as const;
 

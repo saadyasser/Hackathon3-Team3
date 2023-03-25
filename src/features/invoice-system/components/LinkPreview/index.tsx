@@ -1,9 +1,20 @@
 import { Card, Logo, Skeleton } from "components";
+import { useInvoicePreview, usePayInvoice } from "features/invoices";
 import { getFullName } from "utils";
-import { usePayInvoice } from "../../contexts/PayInvoice";
-import { useInvoicePreview } from "../../hooks";
+import returnArrayOfObjects from "utils/returnArrayOfObjects";
 
-const Preview = () => {
+const LinkPreview = ({ data }: { data: any }) => {
+  const currency = { currency: data["currency"] };
+  console.log(currency.currency, "dddd");
+
+  delete data.currency;
+  const fixedObj = returnArrayOfObjects(data);
+  const arrangedData = {
+    ...currency,
+    ...fixedObj,
+  };
+  let total = 0;
+
   const { invoiceId } = usePayInvoice();
   const { preview } = useInvoicePreview(invoiceId);
   const clientFullName = preview
@@ -59,15 +70,18 @@ const Preview = () => {
         <p className="mb-2 text-gray-dark">Service</p>
         <p className="mb-2 text-gray-dark">Amount</p>
       </div>
-      {preview ? (
-        preview?.fixed.map((item) => (
-          <div key={item._id} className="flex items-start justify-between">
-            <span>{item.itemName}</span>
-            <span>
-              {preview.currency} {item.price}
-            </span>
-          </div>
-        ))
+      {arrangedData ? (
+        arrangedData?.fixed.map((item: any) => {
+          total += item.price;
+          return (
+            <div key={item._id} className="flex items-start justify-between">
+              <span>{item.itemName}</span>
+              <span>
+                {item.price} {currency.currency}
+              </span>
+            </div>
+          );
+        })
       ) : (
         <div className="flex items-start justify-between">
           <span>
@@ -83,11 +97,7 @@ const Preview = () => {
         <p className="flex">
           Total
           <span className="ml-auto">
-            {preview ? (
-              `${preview?.currency} ${preview.subTotal}`
-            ) : (
-              <Skeleton width={60} />
-            )}
+            {total ? `${currency?.currency} ${total}` : <Skeleton width={60} />}
           </span>
         </p>
       </div>
@@ -95,4 +105,4 @@ const Preview = () => {
   );
 };
 
-export default Preview;
+export default LinkPreview;

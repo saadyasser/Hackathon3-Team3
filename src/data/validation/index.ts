@@ -34,6 +34,18 @@ export const FORM_VALIDATION = {
   country: {
     required: "Country is required",
   },
+  currency: {
+    required: "currency is required",
+  },
+  itemName: {
+    required: "job title is required",
+  },
+  description: {
+    required: "description is required",
+  },
+  price: {
+    required: "prices is required",
+  },
   otp: {
     pattern: VALIDATION_RULES.isNumber,
   },
