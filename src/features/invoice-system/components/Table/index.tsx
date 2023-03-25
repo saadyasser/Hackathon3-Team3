@@ -24,7 +24,7 @@ export const Table = ({
   const usersPerPage = 5;
   const [sortOrder, setSortOrder] = useState("asc");
   const [type, setType] = useState("all");
-  const [statusFilter, setStatusFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState('sent');
   const pagesVisited = pageNumber * usersPerPage;
   function handleType(type: string) {
     console.log("test");
@@ -32,14 +32,14 @@ export const Table = ({
 
     setType(type);
   }
-  // filter=${statusFilter}
+  // 
 
   const {
     data: d,
     error,
     isLoading,
   } = useSwrFetch(
-    `/transactions/invoice-service-listing?offset=${pageNumber}&limit=5&sort=${sortOrder}&search=${searchValue}&type={type}`,
+    `/transactions/invoice-service-listing?offset=${pageNumber}&limit=20&sort=${sortOrder}&search=${searchValue}&type=${type}&filter=${statusFilter}`,
     { method: "GET", headers: {} }
   );
 
@@ -55,7 +55,7 @@ export const Table = ({
     );
     setData(sortedData);
   };
-  const handleStatusFilterChange = (event: any) => {
+  const handleStatusFilterChange = (event:any) => {
     setStatusFilter(event.target.value);
   };
 
@@ -114,18 +114,10 @@ export const Table = ({
             )}
           </Tab.List>
           <Tab.Panels>
-            <Tab.Panel>
-              <div>
-                <Contant1 toggle={toggle} />
-              </div>
-            </Tab.Panel>
-            <Tab.Panel>
-              <Contant2 showInvoice={showInvoice} />
-            </Tab.Panel>
-            <Tab.Panel>
-              <Contant3 showLinks={showLinks} />
-            </Tab.Panel>
-          </Tab.Panels>
+        <Tab.Panel><div><Contant1 toggle={toggle} handleStatusFilterChange={handleStatusFilterChange} statusFilter={statusFilter}/></div></Tab.Panel>
+        <Tab.Panel><Contant2 showInvoice={showInvoice}  handleStatusFilterChange={handleStatusFilterChange}/></Tab.Panel>
+        <Tab.Panel><Contant3 showLinks={showLinks}  handleStatusFilterChange={handleStatusFilterChange}/></Tab.Panel>
+      </Tab.Panels>
         </Tab.Group>
       </div>
       <table className="w-full text-sm text-left text-gray-500 cursor-pointer  ">
@@ -142,7 +134,7 @@ export const Table = ({
                 Date
                 <div className="flex flex-col ml-2 -mt-2">
                   <p onClick={() => sortData("data")}>&#9650;</p>
-                  <p onClick={() => sortData("data")}>&#9660;</p>
+                  <p onClick={() => sortData("-data")}>&#9660;</p>
                 </div>
               </div>
             </th>
@@ -151,8 +143,8 @@ export const Table = ({
                 {" "}
                 Amount{" "}
                 <div className="flex flex-col ml-2 -mt-2">
-                  <p onClick={() => sortData("data")}>&#9650;</p>
-                  <p onClick={() => sortData("data")}>&#9660;</p>
+                  <p onClick={() => sortData("subTotal")}>&#9650;</p>
+                  <p onClick={() => sortData("-subTotal")}>&#9660;</p>
                 </div>
               </div>
             </th>
@@ -161,8 +153,8 @@ export const Table = ({
                 {" "}
                 Client{" "}
                 <div className="flex flex-col ml-2 -mt-2">
-                  <p onClick={() => sortData("data")}>&#9650;</p>
-                  <p onClick={() => sortData("data")}>&#9660;</p>
+                  <p onClick={() => sortData("fullName")}>&#9650;</p>
+                  <p onClick={() => sortData("-fullName")}>&#9660;</p>
                 </div>
               </div>
             </th>
@@ -171,8 +163,8 @@ export const Table = ({
                 {" "}
                 Status{" "}
                 <div className="flex flex-col ml-2 -mt-2">
-                  <p onClick={() => sortData("data")}>&#9650;</p>
-                  <p onClick={() => sortData("data")}>&#9660;</p>
+                  <p onClick={() => sortData("status")}>&#9650;</p>
+                  <p onClick={() => sortData("status")}>&#9660;</p>
                 </div>
               </div>
             </th>
@@ -180,36 +172,32 @@ export const Table = ({
         </thead>
         <tbody>
           {!isLoading && data?.length === 0 && <tr>No data found</tr>}
-          {data &&
-            data
-              ?.slice(pagesVisited, pagesVisited + usersPerPage)
-              .map((item: any) => (
-                <tr
-                  key={item._id}
-                  className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
-                  onClick={() =>
-                    console.log(item._id && item.invoice?.client.fullName)
-                  }
-                >
-                  <td className=" px-8 py-2">
-                    {item.invoice?.fixed[0]?.itemName ||
-                      item.service?.fixed[0]?.itemName}
-                    <br />
-                    <span className="text-[12px] text-[#BEC2C6]  px-8 py-2">
-                      <FormatData updatedAt={item.updatedAt} />
-                    </span>
-                  </td>
-                  <td className="px-8 py-2">
-                    ${item.invoice?.subTotal || item.service?.subTotal}
-                  </td>
-                  <td>{item.invoice?.client.fullName || "-"}</td>
-                  <td className="px-8 py-2">
-                    <StatusMap
-                      status={item.invoice?.status || item.service?.status}
-                    />
-                  </td>
-                </tr>
-              ))}
+          {data &&data?.slice(pagesVisited, pagesVisited + usersPerPage).map((item:any) => (
+              <tr
+                key={item._id}
+                className="hover:bg-gray-light border-b  hover:cursor-pointer  px-8 py-2"
+                onClick={() =>
+                  console.log(item._id && item.invoice?.client.fullName)
+                }
+              >
+                <td className=" px-8 py-2">
+                 {item.invoice?.fixed[0]?.itemName||item.service?.fixed[0]?.itemName}
+                  <br />
+                  <span className="text-[12px] text-[#BEC2C6]  px-8 py-2">
+                    <FormatData updatedAt={item.updatedAt} />
+                  </span>
+                </td>
+                <td className="px-8 py-2">
+                  ${item.invoice?.subTotal || item.service?.subTotal}
+                </td>
+                <td>{item.invoice?.client.fullName|| '-'}</td>
+                <td className="px-8 py-2">
+                  <StatusMap
+                    status={item.invoice?.status || item.service?.status}
+                  />
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <ReactPaginate
@@ -236,14 +224,4 @@ export function FormatData({ updatedAt }: any) {
 }
 
 export default Table;
-//   <select value={statusFilter} onChange={handleStatusFilterChange}>
-//   <option value="">All</option>
-//   <option value="paid">Paid</option>
-//   <option value="sent">Sent</option>
-//   <option value="pending_payment">Pending Payment</option>
-//   <option value="canceled">Canceled</option>
-//   <option value="active">Active</option>
-//   <option value="inactive">Inactive</option>
-//   <option value="disapproved">Disapproved</option>
-//   <option value="refunded">Refunded</option>
-// </select>
+
