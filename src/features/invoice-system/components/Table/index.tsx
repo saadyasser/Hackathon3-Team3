@@ -24,26 +24,25 @@ export const Table = ({
   const usersPerPage = 5;
   const [sortOrder, setSortOrder] = useState("asc");
   const [type, setType] = useState("all");
-  const [statusFilter, setStatusFilter] = useState("sent");
+  const [statusFilter, setStatusFilter] = useState("");
   const pagesVisited = pageNumber * usersPerPage;
 
   function handleType(type: string) {
-    console.log("test");
-    console.log(type);
-
     setType(type);
   }
+  const basePath = `/transactions/invoice-service-listing?offset=${pageNumber}&limit=20&sort=${sortOrder}&search=${searchValue}&type=${type}`;
+  let path: any = basePath;
+  if (statusFilter != "") path = path + `&filter=${statusFilter}`;
+  else path = basePath;
+  console.log(path, statusFilter);
 
   const {
     data: d,
     error,
     isLoading,
-  } = useSwrFetch(
-    `/transactions/invoice-service-listing?offset=${pageNumber}&limit=20&sort=${sortOrder}&search=${searchValue}&type=${type}&filter=${statusFilter}`,
-    { method: "GET", headers: {} }
-  );
+  } = useSwrFetch(path, { method: "GET", headers: {} });
 
-  console.log(d, error, isLoading);
+  // console.log(d, error, isLoading);
 
   useEffect(() => {
     if (d) setData(d.data?.transactions);
@@ -56,7 +55,10 @@ export const Table = ({
     setData(sortedData);
   };
   const handleStatusFilterChange = (event: any) => {
-    setStatusFilter(event.target.value);
+    if (event.target.checked) setStatusFilter(event.target.value);
+    else setStatusFilter("");
+    console.log(event.target.value);
+    console.log(event.target.checked);
   };
 
   const pageCount = Math.ceil(data?.length / usersPerPage);

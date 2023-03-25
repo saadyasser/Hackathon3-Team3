@@ -40,10 +40,13 @@ export const LinkForm = ({
   url: string;
   data: any;
 }): JSX.Element => {
-  data.fixed = data.fixed.map((obj: any) => {
-    delete obj._id;
-    return obj;
-  });
+  if (data) {
+    data.fixed = data.fixed.map((obj: any) => {
+      delete obj._id;
+      return obj;
+    });
+  }
+
   const [LinkData, setLinkData] = useState(
     id
       ? data
@@ -91,7 +94,7 @@ export const LinkForm = ({
       manual: true,
     },
     onSuccess: () => {
-      router.push(URL_PATHS.HOME);
+      router.push("/invoices-page");
     },
   });
 

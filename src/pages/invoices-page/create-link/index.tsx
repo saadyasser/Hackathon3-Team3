@@ -14,9 +14,13 @@ const options = [
 const InvoicesPage = () => {
   const { user } = useCurrentUser();
   const logout = useLogout();
-
   const router = useRouter();
-  const data = JSON.parse(router.query.data);
+  let data = "";
+  if (router.query.data) {
+    data = JSON.parse(router.query.data);
+  } else {
+    data = "";
+  }
   const url: any = router.query.url;
   const id: any = router.query.id;
 
