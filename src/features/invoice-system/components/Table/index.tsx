@@ -26,13 +26,14 @@ export const Table = ({
   const [type, setType] = useState("all");
   const [statusFilter, setStatusFilter] = useState('sent');
   const pagesVisited = pageNumber * usersPerPage;
+
   function handleType(type: string) {
     console.log("test");
     console.log(type);
 
     setType(type);
   }
-  // 
+
 
   const {
     data: d,
@@ -64,7 +65,7 @@ export const Table = ({
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
   };
-
+  
   return (
     <NoSsr>
       <div className="text-[14px] text-[#9E9E9E] border-b cursor-pointer">
@@ -73,6 +74,7 @@ export const Table = ({
             {allTab && (
               <Tab
                 value="all"
+                onClick={(e)=> handleType('all')}
                 className={({ selected }) =>
                   classNames(
                     "py-2.5 px-3 focus:outline-none ",
@@ -86,6 +88,7 @@ export const Table = ({
             {invoiceTab && (
               <Tab
                 value="invoices"
+                onClick={(e)=> handleType('invoice')}
                 className={({ selected }) =>
                   classNames(
                     "py-2.5 px-3 focus:outline-none ",
@@ -99,6 +102,7 @@ export const Table = ({
             {serviceTab && (
               <Tab
                 value="links"
+                onClick={(e)=> handleType('service')}
                 className={({ selected }) =>
                   classNames(
                     "py-2.5 px-3 focus:outline-none",
@@ -178,7 +182,7 @@ export const Table = ({
                 }
               >
                 <td className=" px-8 py-2">
-                 {item.invoice?.fixed[0]?.itemName||item.service?.fixed[0]?.itemName}
+                  <NameDisplay item={item.invoice?.fixed[0]?.itemName||item.service?.fixed[0]?.itemName}/>
                   <br />
                   <span className="text-[12px] text-[#BEC2C6]  px-8 py-2">
                     <FormatData updatedAt={item.updatedAt} />
