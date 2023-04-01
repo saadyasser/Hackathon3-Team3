@@ -20,3 +20,5 @@ export * from "./Skeleton";
 export * from "./ToggleButtons";
 export * from "./BalanceCard";
 export { default as Dropdown } from "./Dropdown";
+export * from "./Modal";
+export * from "./TransferCard";

@@ -27,7 +27,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const classNames = useMemo(() => {
       const classes = {
         inputContainer: `mb-1 relative text-gray-dark ${className ?? ""}`,
-        label: `block mb-1 ${labelClassName ?? ""}`,
+        label: `font-medium block mb-1 ${labelClassName ?? ""}`,
         icon: "absolute text-gray-400 select-none top-1/2 -translate-y-2/4",
         startIcon: "left-4",
         endIcon: "right-4",

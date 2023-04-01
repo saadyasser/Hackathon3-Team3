@@ -1,4 +1,6 @@
 import { BalanceCard, Card } from "components";
+import DrawelInvoice from "features/invoice-system/components/DrawelInvoice";
+import DrawelInvoiceLink from "features/invoice-system/components/DrawelInvoiceLink";
 import { GeneralLayout } from "layouts";
 import Search from "features/invoice-system/components/Table/Search";
 import Table from "features/invoice-system/components/Table";
@@ -26,6 +28,14 @@ const Home: any = (): any => {
         <Card>
           <Table toggle={toggle} showLinks={showLinks} showInvoice={showInvoice} searchValue={searchValue} setSearchValue={setSearchValue} data={data} allTab={allTab} setData={setData} invoiceTab={invoiceTab} serviceTab={serviceTab} />
         </Card>
+      <Card>
+        <div>test preview layout ....</div>
+      </Card>
+      <div>
+        <DrawelInvoice />
+        <DrawelInvoiceLink/>
+       
+      </div>
       </div>
     </GeneralLayout>
   );

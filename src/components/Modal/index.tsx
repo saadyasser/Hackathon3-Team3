@@ -1,5 +1,6 @@
+import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { Dialog, Transition } from "lib/@headlessui";
+// import { Dialog, Transition } from "lib/@headlessui";
 
 export function Modal({
   closeModal,

@@ -18,6 +18,7 @@ import {
   AdjustmentsHorizontalIcon as AdjustmentsHorizontalIcon,
   ArrowsUpDownIcon as ArrowsUpDownIcon,
   PaperAirplaneIcon as Send,
+  ChevronDownIcon as ChevronDownIconMini,
 } from "@heroicons/react/20/solid";
 import {
   InformationCircleIcon,
@@ -26,9 +27,11 @@ import {
   MagnifyingGlassIcon as MagnifyingGlassIcon,
   PlusIcon as PlusIcon,
   PaperAirplaneIcon as PaperAirplaneIcon,
+  ChevronLeftIcon as LeftArrowIcon,
 } from "@heroicons/react/24/outline";
 
 export {
+  ChevronDownIconMini,
   ChevronRightIconMini,
   ErrorIconMini,
   CheckCircleIconMini,
@@ -53,4 +56,5 @@ export {
   Send,
   PlusIcon,
   PaperAirplaneIcon,
+  LeftArrowIcon,
 };

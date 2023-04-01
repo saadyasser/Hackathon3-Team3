@@ -1,62 +1,98 @@
-import React from 'react'
-import { NoSsr, Card} from "components";
-export const Contant1 = ({toggle,statusFilter,handleStatusFilterChange}:any) => {
-   
-
-  return (
-    <NoSsr>     
+import React from "react";
+import { NoSsr, Card } from "components";
+export const Contant1 = ({
+    toggle,
+    statusFilter,
+    handleStatusFilterChange,
+}: any) => {
+    return (
+        <NoSsr>
         <div>
-        {toggle && (
-        <Card className="fixed right-[454px] top-[155px] pr-6">
-            <ul>
+            {toggle && (
+            <Card className="fixed right-[454px] top-[155px] pr-6">
+                <ul>
                 <li>
-                <label className="text-[#707070] text-sm">
-                    <input type="checkbox" className="mr-4 " value="paid"  onChange={handleStatusFilterChange} />
+                    <label className="text-[#707070] text-sm">
+                    <input
+                        type="checkbox"
+                        className="mr-4 "
+                        value="paid"
+                        onChange={handleStatusFilterChange}
+                    />
                     Paid
-                </label>
+                    </label>
                 </li>
                 <li>
-                <label className="text-[#707070] text-sm">
-                    <input type="checkbox" className="mr-4" value="sent" onChange={handleStatusFilterChange}  />
+                    <label className="text-[#707070] text-sm">
+                    <input
+                        type="checkbox"
+                        className="mr-4"
+                        value="sent"
+                        onChange={handleStatusFilterChange}
+                    />
                     Sent
-                </label>
+                    </label>
                 </li>
                 <li>
-                <label className="text-[#707070] text-sm">
-                    <input type="checkbox" className="mr-4" value="pending"  onChange={handleStatusFilterChange}  />
-                    Pending 
-                </label>
+                    <label className="text-[#707070] text-sm">
+                    <input
+                        type="checkbox"
+                        className="mr-4"
+                        value="pending"
+                        onChange={handleStatusFilterChange}
+                    />
+                    Pending
+                    </label>
                 </li>
                 <li>
-                <label className="text-[#707070] text-sm">
-                    <input type="checkbox" className="mr-4" value="cancelled"  onChange={handleStatusFilterChange}  />
+                    <label className="text-[#707070] text-sm">
+                    <input
+                        type="checkbox"
+                        className="mr-4"
+                        value="cancelled"
+                        onChange={handleStatusFilterChange}
+                    />
                     Canceled
-                </label>
+                    </label>
                 </li>
                 <li>
-                <label className="text-[#707070] text-sm">
-                    <input type="checkbox" className="mr-4" value="active"   onChange={handleStatusFilterChange} />
+                    <label className="text-[#707070] text-sm">
+                    <input
+                        type="checkbox"
+                        className="mr-4"
+                        value="active"
+                        onChange={handleStatusFilterChange}
+                    />
                     Active
-                </label>
+                    </label>
                 </li>
                 <li>
-                <label className="text-[#707070] text-sm">
-                    <input type="checkbox" className="mr-4" value="inactive"  onChange={handleStatusFilterChange} />
+                    <label className="text-[#707070] text-sm">
+                    <input
+                        type="checkbox"
+                        className="mr-4"
+                        value="inactive"
+                        onChange={handleStatusFilterChange}
+                    />
                     Inactive
-                </label>
+                    </label>
                 </li>
                 <li>
-                <label className="text-[#707070] text-sm">
-                    <input type="checkbox" className="mr-4" value="disapproved" onChange={handleStatusFilterChange} />
+                    <label className="text-[#707070] text-sm">
+                    <input
+                        type="checkbox"
+                        className="mr-4"
+                        value="disapproved"
+                        onChange={handleStatusFilterChange}
+                    />
                     Disapproved
-                </label>
+                    </label>
                 </li>
-          
-            </ul>
+                </ul>
             </Card>
-         )}
-            </div>
-       </NoSsr>
-  )
-}
+            )}
+        </div>
+        </NoSsr>
+    );
+};
 export default Contant1;

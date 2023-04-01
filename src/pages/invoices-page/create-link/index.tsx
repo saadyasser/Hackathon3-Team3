@@ -3,6 +3,8 @@ import { useCurrentUser, useLogout } from "features/authentication";
 import { Button, Dropdown } from "components";
 import { NestedLayout } from "layouts";
 import { LinkForm } from "features/invoice-system/components";
+import { Preview } from "features/invoices";
+import { useRouter } from "next/router";
 
 const options = [
   { value: "settings", label: "Account settings" },
@@ -12,12 +14,20 @@ const options = [
 const InvoicesPage = () => {
   const { user } = useCurrentUser();
   const logout = useLogout();
+  const router = useRouter();
+  let data = "";
+  if (router.query.data) {
+    data = JSON.parse(router.query.data);
+  } else {
+    data = "";
+  }
+  const url: any = router.query.url;
+  const id: any = router.query.id;
 
   return (
-    <NestedLayout
-      form={<LinkForm id="" url="" data={[]} />}
-      preview={<p>Preview section</p>}
-    ></NestedLayout>
+    <NestedLayout>
+      <LinkForm id={id} url={url} data={data} />
+    </NestedLayout>
   );
 };
 

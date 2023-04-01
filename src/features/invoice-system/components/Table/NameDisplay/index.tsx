@@ -1,13 +1,13 @@
 import React from 'react';
 
-function NameDisplay({ firstName, lastName ,itemName}:any) {
-  const maxLength = 10; // max number of characters to display
-  const fullName = `${firstName} ${lastName}`;
+function NameDisplay({ item}:any) {
+  const maxLength = 12; // max number of characters to display
+  const fullName = `${item}`;
   let display;
 
-  if (!lastName) {
+  if (!item) {
     // only first name is present
-    display = firstName.slice(0, maxLength);
+    display = item?.slice(0, maxLength);
   } else if (fullName.length <= maxLength) {
     // full name is within the max length
     display = fullName;
